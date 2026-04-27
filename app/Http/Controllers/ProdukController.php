@@ -29,12 +29,12 @@ class ProdukController extends Controller
             ->onEachSide(2)
             ->withQueryString();
             
-        return view('Admin.Produk.index', compact('dataProduk'));
+        return view('admin.produk.index', compact('dataProduk'));
     }
 
     public function create()
     {
-        return view('Admin.Produk.create');
+        return view('admin.produk.create');
     }
 
     public function store(Request $request)
@@ -42,7 +42,7 @@ class ProdukController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_produk' => 'required|string|max:100|unique:produk,nama_produk',
             'jumlah' => 'required|integer|min:0',
-            'kategori' => 'required|in:Bakpao Manis,Bakpao Gurih,Bakpao Spesial,Dimsum Goreng',
+            'kategori' => 'required|in:Bakpao Manis,Bakpao Gurih,Bakpao Spesial,Dimsum Goreng,Risol Mayo',
             'harga' => 'required|integer|min:0',
             'tgl_masuk' => 'required|date',
             'tgl_expired' => 'required|date|after:tgl_masuk',
@@ -83,7 +83,7 @@ class ProdukController extends Controller
     public function edit(string $param1)
     {
         $dataProduk = Produk::findOrFail($param1);
-        return view('Admin.Produk.edit', compact('dataProduk'));
+        return view('admin.produk.edit', compact('dataProduk'));
     }
 
     public function update(Request $request)
@@ -92,7 +92,7 @@ class ProdukController extends Controller
             'produk_id' => 'required|exists:produk,produk_id',
             'nama_produk' => 'required|string|max:100|unique:produk,nama_produk,' . $request->produk_id . ',produk_id',
             'jumlah' => 'required|integer|min:0',
-            'kategori' => 'required|in:Bakpao Manis,Bakpao Gurih,Bakpao Spesial,Dimsum Goreng',
+            'kategori' => 'required|in:Bakpao Manis,Bakpao Gurih,Bakpao Spesial,Dimsum Goreng,Risol Mayo',
             'harga' => 'required|integer|min:0',
             'tgl_masuk' => 'required|date',
             'tgl_expired' => 'required|date|after:tgl_masuk',

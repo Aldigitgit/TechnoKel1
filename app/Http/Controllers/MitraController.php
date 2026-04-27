@@ -40,7 +40,7 @@ class MitraController extends Controller
             ->onEachSide(2)
             ->withQueryString();
             
-        return view('Admin.Mitra.index', compact('dataMitra'));
+        return view('admin.mitra.index', compact('dataMitra'));
     }
 
     /**
@@ -48,7 +48,7 @@ class MitraController extends Controller
      */
     public function create()
     {
-        return view('Admin.Mitra.create');
+        return view('admin.mitra.create');
     }
 
     /**
@@ -93,7 +93,7 @@ class MitraController extends Controller
 
         Mitra::create($data);
 
-        return redirect()->route('Mitra.list')
+        return redirect()->route('mitra.list')
             ->with('success', 'Mitra berhasil ditambahkan!');
     }
 
@@ -103,7 +103,7 @@ class MitraController extends Controller
     public function show($Mitra_Id)
     {
         $dataMitra = Mitra::findOrFail($Mitra_Id);
-        return view('Admin.Mitra.show', compact('dataMitra'));
+        return view('admin.mitra.show', compact('dataMitra'));
     }
 
     /**
@@ -112,7 +112,7 @@ class MitraController extends Controller
     public function edit($Mitra_Id)
     {
         $dataMitra = Mitra::findOrFail($Mitra_Id);
-        return view('Admin.Mitra.edit', compact('dataMitra'));
+        return view('admin.mitra.edit', compact('dataMitra'));
     }
 
     /**
@@ -156,7 +156,7 @@ class MitraController extends Controller
 
         $mitra->save();
 
-        return redirect()->route('Mitra.list')
+        return redirect()->route('mitra.list')
             ->with('success', 'Mitra berhasil diperbarui!');
     }
 
@@ -168,7 +168,7 @@ class MitraController extends Controller
         $mitra = Mitra::findOrFail($Mitra_Id);
         $mitra->delete();
 
-        return redirect()->route('Mitra.list')
+        return redirect()->route('mitra.list')
             ->with('success', 'Mitra berhasil dihapus!');
     }
 }

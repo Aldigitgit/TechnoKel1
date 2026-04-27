@@ -1,4 +1,4 @@
-@extends('layouts.Admin.app')
+@extends('layouts.admin.app')
 
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
@@ -13,7 +13,7 @@
         <p class="mb-0">Daftar semua pesanan Bakpao & Dimsum yang masuk.</p>
     </div>
     <div class="btn-toolbar mb-2 mb-md-0">
-        <a href="{{ route('Pesan.create') }}" class="btn btn-sm btn-success">
+        <a href="{{ route('pesan.create') }}" class="btn btn-sm btn-success">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
             Tambah Pesanan
         </a>
@@ -57,9 +57,9 @@
                         </td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('Pesan.show', $row->pesanan_id) }}" class="btn btn-primary btn-sm">Detail</a>
-                                <a href="{{ route('Pesan.edit', $row->pesanan_id) }}" class="btn btn-info btn-sm">Edit</a>
-                                <form action="{{ route('Pesan.destroy', $row->pesanan_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus?')">
+                                <a href="{{ route('pesan.show', $row->pesanan_id) }}" class="btn btn-primary btn-sm">Detail</a>
+                                <a href="{{ route('pesan.edit', $row->pesanan_id) }}" class="btn btn-info btn-sm">Edit</a>
+                                <form action="{{ route('pesan.destroy', $row->pesanan_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus?')">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                                 </form>

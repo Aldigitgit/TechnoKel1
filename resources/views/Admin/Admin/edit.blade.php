@@ -16,7 +16,7 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">DashBoard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('Admin.list') }}">User</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.list') }}">User</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Edit User</li>
             </ol>
         </nav>
@@ -24,7 +24,7 @@
         <p class="mb-0">Form perubahan data user.</p>
     </div>
     <div class="btn-toolbar mb-2 mb-md-0">
-        <a href="{{ route('Admin.list') }}" class="btn btn-sm btn-warning d-inline-flex align-items-center text-white">
+        <a href="{{ route('admin.list') }}" class="btn btn-sm btn-warning d-inline-flex align-items-center text-white">
             Kembali
         </a>
     </div>
@@ -42,7 +42,7 @@
 
 <div class="card card-body border-0 shadow mb-4">
     <h2 class="h5 mb-4">Informasi User</h2>
-    <form action="{{ route('Admin.update') }}" method="post">
+    <form action="{{ route('admin.update') }}" method="post">
         @csrf
         <div class="row">
             <div class="col-md-6 mb-3">
@@ -73,7 +73,7 @@
         <input type="hidden" name="user_id" value="{{ $dataAdmin->id }}"/>
         <div class="mt-3">
             <button class="btn btn-info mt-2 animate-up-2" type="submit">Simpan Perubahan</button>
-            <a href="{{ route('Admin.list') }}" class="btn btn-secondary mt-2">Batal</a>
+            <a href="{{ route('admin.list') }}" class="btn btn-secondary mt-2">Batal</a>
         </div>
     </form>
 </div>

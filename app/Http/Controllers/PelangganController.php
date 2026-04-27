@@ -30,12 +30,12 @@ class PelangganController extends Controller
             ->onEachSide(2)
             ->withQueryString();
             
-        return view('Admin.Pelanggan.index', compact('dataPelanggan'));
+        return view('admin.pelanggan.index', compact('dataPelanggan'));
     }
 
     public function create()
     {
-        return view('Admin.Pelanggan.create');
+        return view('admin.pelanggan.create');
     }
 
     public function store(Request $request)
@@ -83,7 +83,7 @@ class PelangganController extends Controller
     public function edit(string $param1)
     {
         $dataPelanggan = Pelanggan::findOrFail($param1);
-        return view('Admin.Pelanggan.edit', compact('dataPelanggan'));
+        return view('admin.pelanggan.edit', compact('dataPelanggan'));
     }
 
     public function update(Request $request)

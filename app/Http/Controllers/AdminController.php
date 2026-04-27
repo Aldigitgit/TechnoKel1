@@ -23,7 +23,7 @@ class AdminController extends Controller
             ->onEachSide(2)
             ->withQueryString();
             
-        return view('Admin.Admin.index', compact('dataAdmin'));
+        return view('admin.admin.index', compact('dataAdmin'));
     }
 
     /**
@@ -31,7 +31,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('Admin.Admin.create');
+        return view('admin.admin.create');
     }
 
     /**
@@ -73,7 +73,7 @@ class AdminController extends Controller
 
         User::create($data);
 
-        return redirect()->route('Admin.list')
+        return redirect()->route('admin.list')
             ->with('success', 'User berhasil ditambahkan!');
     }
 
@@ -83,7 +83,7 @@ class AdminController extends Controller
     public function show(string $id)
     {
         $dataAdmin = User::findOrFail($id);
-        return view('Admin.Admin.show', compact('dataAdmin'));
+        return view('admin.admin.show', compact('dataAdmin'));
     }
 
     /**
@@ -92,7 +92,7 @@ class AdminController extends Controller
     public function edit(string $param1)
     {
         $dataAdmin = User::findOrFail($param1);
-        return view('Admin.Admin.edit', compact('dataAdmin'));
+        return view('admin.admin.edit', compact('dataAdmin'));
     }
 
     /**
@@ -144,7 +144,7 @@ class AdminController extends Controller
         
         $user->save();
 
-        return redirect()->route('Admin.list')
+        return redirect()->route('admin.list')
             ->with('success', 'User berhasil diperbarui!');
     }
 
@@ -157,13 +157,13 @@ class AdminController extends Controller
         
         // Cek jangan hapus user sendiri
         if (Auth::id() == $user->id) {
-            return redirect()->route('Admin.list')
+            return redirect()->route('admin.list')
                 ->with('error', 'Anda tidak dapat menghapus akun sendiri!');
         }
         
         $user->delete();
 
-        return redirect()->route('Admin.list')
+        return redirect()->route('admin.list')
             ->with('success', 'User berhasil dihapus!');
     }
 

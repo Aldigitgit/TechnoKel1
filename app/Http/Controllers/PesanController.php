@@ -17,7 +17,7 @@
         public function index()
         {
             $dataPesan = Pesan::latest()->paginate(10);
-            return view('Pelanggan.index', compact('dataPesan'));
+            return view('pelanggan.index', compact('dataPesan'));
         }
 
         /**
@@ -25,7 +25,7 @@
          */
         public function create()
         {
-            return view('Pelanggan.create');
+            return view('pelanggan.create');
         }
 
         /**
@@ -142,7 +142,7 @@ if ($request->hasFile('bukti_pembayaran')) {
             $pesanan = Pesan::create($data);
 
             // Redirect ke halaman sukses
-            return redirect()->route('Pesan.success', $pesanan->pesanan_id)
+            return redirect()->route('pesan.success', $pesanan->pesanan_id)
                 ->with('success', 'Pesanan berhasil dibuat! Kami akan menghubungi Anda segera.');
         }
 
@@ -152,7 +152,7 @@ if ($request->hasFile('bukti_pembayaran')) {
         public function success(string $id)
         {
             $pesanan = Pesan::findOrFail($id);
-            return view('Pelanggan.success', compact('pesanan'));
+            return view('pelanggan.success', compact('pesanan'));
         }
 
         /**
@@ -161,7 +161,7 @@ if ($request->hasFile('bukti_pembayaran')) {
         public function show(string $id)
         {
             $pesanan = Pesan::findOrFail($id);
-            return view('Pelanggan.show', compact('pesanan'));
+            return view('pelanggan.show', compact('pesanan'));
         }
 
         /**
@@ -170,7 +170,7 @@ if ($request->hasFile('bukti_pembayaran')) {
         public function edit(string $id)
         {
             $dataPesan = Pesan::findOrFail($id);
-            return view('Pelanggan.edit', compact('dataPesan'));
+            return view('pelanggan.edit', compact('dataPesan'));
         }
 
         /**
@@ -272,7 +272,7 @@ if ($request->hasFile('bukti_pembayaran')) {
 
             $pesanan->save();
 
-            return redirect()->route('Pesan.list')->with('success', 'Perubahan Data Berhasil!');
+            return redirect()->route('pesan.list')->with('success', 'Perubahan Data Berhasil!');
         }
 
         /**
@@ -292,7 +292,7 @@ if ($pesanan->bukti_pembayaran) {
             
             $pesanan->delete();
 
-            return redirect()->route('Pesan.list')->with('success', 'Penghapusan Data Berhasil!');
+            return redirect()->route('pesan.list')->with('success', 'Penghapusan Data Berhasil!');
         }
 
         /**

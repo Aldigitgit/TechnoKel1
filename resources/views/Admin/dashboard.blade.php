@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-0 pt-0 pb-2 text-end">
-                        <a href="{{ route('Mitra.list') }}" class="small text-primary">Lihat semua &rarr;</a>
+                        <a href="{{ route('mitra.list') }}" class="small text-primary">Lihat semua &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-0 pt-0 pb-2 text-end">
-                        <a href="{{ route('Pesan.list') }}" class="small text-primary">Lihat semua &rarr;</a>
+                        <a href="{{ route('pesan.list') }}" class="small text-primary">Lihat semua &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
         <div class="card border-0 shadow mb-4">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <h2 class="fs-5 fw-bold mb-0">🥟 Pesanan Terbaru</h2>
-                <a href="{{ route('Pesan.list') }}" class="btn btn-sm btn-primary">Lihat Semua</a>
+                <a href="{{ route('pesan.list') }}" class="btn btn-sm btn-primary">Lihat Semua</a>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -128,8 +128,8 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('Pesan.edit', $p->pesanan_id) }}" class="btn btn-info btn-sm py-0 px-2 me-1">Edit</a>
-                                    <a href="{{ route('Pesan.destroy', $p->pesanan_id) }}" class="btn btn-danger btn-sm py-0 px-2"
+                                    <a href="{{ route('pesan.edit', $p->pesanan_id) }}" class="btn btn-info btn-sm py-0 px-2 me-1">Edit</a>
+                                    <a href="{{ route('pesan.destroy', $p->pesanan_id) }}" class="btn btn-danger btn-sm py-0 px-2"
                                         onclick="return confirm('Hapus pesanan ini?')">Hapus</a>
                                 </td>
                             </tr>
@@ -179,7 +179,7 @@
                 <h5 class="mb-0 fw-bold">{{ Auth::check() ? Auth::user()->name : '-' }}</h5>
                 <p class="text-muted small mb-1">{{ Auth::check() ? Auth::user()->role : '' }}</p>
                 <p class="text-muted small mb-3">{{ Auth::check() ? Auth::user()->email : '' }}</p>
-                <a href="{{ route('Admin.list') }}" class="btn btn-sm btn-warning text-white w-100">Kelola User</a>
+                <a href="{{ route('admin.list') }}" class="btn btn-sm btn-warning text-white w-100">Kelola User</a>
             </div>
         </div>
 
@@ -206,7 +206,7 @@
                 </ul>
             </div>
             <div class="card-footer text-end bg-transparent">
-                <a href="{{ route('Pesan.list') }}" class="small text-primary">Lihat semua pesanan &rarr;</a>
+                <a href="{{ route('pesan.list') }}" class="small text-primary">Lihat semua pesanan &rarr;</a>
             </div>
         </div>
 
@@ -216,10 +216,10 @@
                 <h2 class="fs-5 fw-bold mb-0">⚡ Menu Cepat</h2>
             </div>
             <div class="card-body d-grid gap-2">
-                <a href="{{ route('Pesan.list') }}" class="btn btn-sm text-start" style="color:#fff;background:#ec4899;border-color:#ec4899;">
+                <a href="{{ route('pesan.list') }}" class="btn btn-sm text-start" style="color:#fff;background:#ec4899;border-color:#ec4899;">
                     🥟 Kelola Pesanan
                 </a>
-                <a href="{{ route('Mitra.list') }}" class="btn btn-outline-warning btn-sm text-start">
+                <a href="{{ route('mitra.list') }}" class="btn btn-outline-warning btn-sm text-start">
                     🤝 Kelola Mitra
                 </a>
                 <a href="{{ route('produk.list') }}" class="btn btn-outline-primary btn-sm text-start">
@@ -229,7 +229,7 @@
                     👤 Kelola Pelanggan
                 </a>
                 @if(Auth::check() && Auth::user()->role == 'Administrator')
-                <a href="{{ route('Admin.list') }}" class="btn btn-outline-secondary btn-sm text-start">
+                <a href="{{ route('admin.list') }}" class="btn btn-outline-secondary btn-sm text-start">
                     🔒 Kelola Admin
                 </a>
                 @endif

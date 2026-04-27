@@ -319,7 +319,7 @@
             <div class="product-preview-item"><span>🥠</span> Dimsum</div>
           </div>
 
-          <form action="{{ route('Pesan.store') }}" method="post" enctype="multipart/form-data" id="orderForm">
+          <form action="{{ route('pesan.store') }}" method="post" enctype="multipart/form-data" id="orderForm">
             @csrf
 
             <!-- 1. Detail Pemesanan -->

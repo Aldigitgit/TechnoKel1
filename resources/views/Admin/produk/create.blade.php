@@ -65,6 +65,7 @@
                     <option value="Bakpao Gurih" {{ old('kategori') == 'Bakpao Gurih' ? 'selected' : '' }}>🍖 Bakpao Gurih</option>
                     <option value="Bakpao Spesial" {{ old('kategori') == 'Bakpao Spesial' ? 'selected' : '' }}>✨ Bakpao Spesial</option>
                     <option value="Dimsum Goreng" {{ old('kategori') == 'Dimsum Goreng' ? 'selected' : '' }}>🥠 Dimsum Goreng</option>
+                    <option value="Risol Mayo" {{ old('kategori') == 'Risol Mayo' ? 'selected' : '' }}>🥐 Risol Mayo</option>
                 </select>
             </div>
             <div class="col-md-6 mb-3">

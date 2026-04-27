@@ -6,7 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ProdukController;
-use App\Http\Controllers\dashBoardController;
+use App\Http\Controllers\dashboardcontroller;
 use App\Http\Controllers\PelangganController;
 
 // ========== ROUTE TANPA MIDDLEWARE (PUBLIC) ==========
@@ -24,11 +24,11 @@ Route::post('/login/kirim', [AuthController::class, 'kirimlogin'])->name('kiriml
 Route::group(['middleware' => ['checkislogin']], function () {
     
     // Dashboard
-    Route::get('/dashboard', [dashBoardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [dashboardcontroller::class, 'index'])->name('dashboard');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     
     // ========== ROUTE MITRA ==========
-    Route::prefix('Mitra')->name('Mitra.')->group(function () {
+    Route::prefix('mitra')->name('mitra.')->group(function () {
         Route::get('/', [MitraController::class, 'index'])->name('list');
         Route::get('/create', [MitraController::class, 'create'])->name('create');
         Route::post('/store', [MitraController::class, 'store'])->name('store');
@@ -58,7 +58,7 @@ Route::group(['middleware' => ['checkislogin']], function () {
     });
     
     // ========== ROUTE PESANAN ==========
-    Route::prefix('Pesan')->name('Pesan.')->group(function () {
+    Route::prefix('pesan')->name('pesan.')->group(function () {
         Route::get('/', [PesanController::class, 'index'])->name('list');
         Route::get('/create', [PesanController::class, 'create'])->name('create');
         Route::post('/store', [PesanController::class, 'store'])->name('store');
@@ -71,7 +71,7 @@ Route::group(['middleware' => ['checkislogin']], function () {
     
     // ========== ROUTE ADMIN (HANYA UNTUK ROLE ADMINISTRATOR) ==========
     Route::group(['middleware' => ['checkrole:Administrator']], function () {
-        Route::prefix('Admin')->name('Admin.')->group(function () {
+        Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/', [AdminController::class, 'index'])->name('list');
             Route::get('/create', [AdminController::class, 'create'])->name('create');
             Route::post('/store', [AdminController::class, 'store'])->name('store');

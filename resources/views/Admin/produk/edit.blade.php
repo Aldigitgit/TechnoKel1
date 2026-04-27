@@ -18,16 +18,16 @@
                         </li>
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">DashBoard</a></li>
                         <li class="breadcrumb-item" aria-current="page"><a
-                                href="{{ route('Produk.list') }}">Produk</a></li>
+                                href="{{ route('produk.list') }}">Produk</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><a
-                                href="{{ route('Produk.create') }}">Edit Data</a></li>
+                                href="{{ route('produk.create') }}">Edit Data</a></li>
                     </ol>
                 </nav>
                 <h2 class="h4">Edit Produk</h2>
                 <p class="mb-0">Form perubahan data Produk.</p>
             </div>
             <div class="btn-toolbar mb-2 mb-md-0">
-                <a href="{{ route('Produk.list') }}"
+                <a href="{{ route('produk.list') }}"
                     class="btn btn-sm btn-warning d-inline-flex align-items-center text-white">
                     Kembali
                 </a>
@@ -51,7 +51,7 @@
 
         <div class="card card-body border-0 shadow mb-4">
             <h2 class="h5 mb-4"></h2>
-            <form action="{{ route('Produk.update') }}" method="post">
+            <form action="{{ route('produk.update') }}" method="post">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -77,9 +77,11 @@
                         <select class="form-select mb-0" id="kategori" aria-label="kategori select example"
                             name="kategori" value="{{ old('kategori') }}">
                             <option selected="">kategori</option>
-                            <option value="Brownies"{{ $dataProduk->kategori == "Brownies" ?"selected": "" }}>Brownies</option>
-                            <option value="Bolu_Gulung"{{ $dataProduk->kategori == "Bolu_Gulung" ?"selected": "" }}>Bolu Gulung</option>
-                            <option value="Kue_UlangTahun"{{ $dataProduk->kategori == "Kue_UlangTahun" ?"selected": "" }}>Kue Ulang Tahun</option>
+                            <option value="Bakpao Manis"{{ $dataProduk->kategori == "Bakpao Manis" ?"selected": "" }}>Bakpao Manis</option>
+                            <option value="Bakpao Gurih"{{ $dataProduk->kategori == "Bakpao Gurih" ?"selected": "" }}>Bakpao Gurih</option>
+                            <option value="Bakpao Spesial"{{ $dataProduk->kategori == "Bakpao Spesial" ?"selected": "" }}>Bakpao Spesial</option>
+                            <option value="Dimsum Goreng"{{ $dataProduk->kategori == "Dimsum Goreng" ?"selected": "" }}>Dimsum Goreng</option>
+                            <option value="Risol Mayo"{{ $dataProduk->kategori == "Risol Mayo" ?"selected": "" }}>Risol Mayo</option>
                         </select>
                     </div>
                     <div class="col-md-6 mb-3"><label for="tgl_masuk">tgl_masuk</label>

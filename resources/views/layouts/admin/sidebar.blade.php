@@ -57,7 +57,7 @@
         </li>
 
          <li class="nav-item ">
-            <a href="{{ route('Pesan.list') }}" class="nav-link">
+            <a href="{{ route('pesan.list') }}" class="nav-link">
                 <span class="sidebar-icon">
                     <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +85,7 @@
        
 
             <li class="nav-item   ">
-                <a href="{{ route('Admin.list') }}" class="nav-link">
+                <a href="{{ route('admin.list') }}" class="nav-link">
                     <span class="sidebar-icon">
                         <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -98,7 +98,7 @@
             </li>
 
             <li class="nav-item   ">
-                <a href="{{ route('Mitra.list') }}" class="nav-link">
+                <a href="{{ route('mitra.list') }}" class="nav-link">
                     <span class="sidebar-icon">
                         <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">

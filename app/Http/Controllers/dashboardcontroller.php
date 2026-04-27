@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-class dashBoardController extends Controller
+class dashboardcontroller extends Controller
 {
     public function index() {
 

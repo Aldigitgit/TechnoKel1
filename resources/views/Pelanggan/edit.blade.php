@@ -53,7 +53,7 @@
       <div class="col-lg-8">
         <div class="card card-primary p-4 shadow">
           <h3 class="card-title text-center mb-4">Edit Pemesanan Kue</h3>
-          <form action="{{ route('Pesan.update') }}" method="post" enctype="multipart/form-data">
+          <form action="{{ route('pesan.update') }}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="pesan_id" value="{{ $dataPesan->pesan_id }}">
             
@@ -171,7 +171,7 @@
             <!-- Tombol Submit -->
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-              <a href="{{ route('Pesan.list') }}" class="btn btn-secondary">Batal</a>
+              <a href="{{ route('pesan.list') }}" class="btn btn-secondary">Batal</a>
             </div>
           </form>
         </div>
