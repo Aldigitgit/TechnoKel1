@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class CreateadminDummy extends Seeder
+class createadmindummy extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class CreateadminDummy extends Seeder
         $faker = \Faker\Factory::create();
 
         foreach (range(1, 5) as $index) {
-            DB::table('Users')->insert([
+            DB::table('users')->insert([
                 'name' => $faker->name,
                 'email' => $faker->unique()->safeEmail,
                 'password' => $faker->password,
