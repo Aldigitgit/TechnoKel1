@@ -284,7 +284,7 @@
                         <h2>Segar Dikukus & Digoreng Setiap Hari</h2>
                         <p>pesan sekarang untuk sarapan atau camilan keluarga. Tersedia juga untuk acara dan pesanan dalam
                             jumlah besar.</p>
-                        <a href="{{ route(')esan.create') }}" class="btn-primary">pesan Sekarang</a>
+                        <a href="{{ route('pesan.create') }}" class="btn-primary">pesan Sekarang</a>
                     </div>
                 </div>
             </div>
