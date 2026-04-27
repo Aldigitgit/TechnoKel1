@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="hero-visual">
-                <img src="https://png.pngtree.com/png-vector/20221019/ourmid/pngtree-meatbun-chines-png-image_6353132.png" alt="Bakpao Hero" class="hero-img">
+                <img src="https://img.sanishtech.com/u/930967ffad3897f66be8d0148e54887e.jpeg" alt="Bakpao Hero" class="hero-img">
             </div>
         </div>
     </section>
@@ -274,12 +274,11 @@
         <div class="container">
             <div class="about-inner">
                 <div class="about-img">
-                    <img src="https://png.pngtree.com/png-vector/20221019/ourmid/pngtree-meatbun-chines-png-image_6353132.png" alt="Tentang Duha Pao">
+                    <img src="https://img.sanishtech.com/u/930967ffad3897f66be8d0148e54887e.jpeg" alt="Tentang Duha Pao">
                 </div>
                 <div class="about-text">
                     <h2>Tentang Duha Pao</h2>
-                    <p>Duha Pao merupakan UMKM kuliner yang berlokasi di Pangkalan Kerinci, Kabupaten Pelalawan. Didirikan pada tahun 2005, usaha ini bermula dari hobi pemilik membuat kue di rumah untuk mengisi waktu luang.</p>
-                    <p>Pada tahun 2017, Duha Pao membuka toko untuk melayani pelanggan secara langsung dan terus berkembang melalui inovasi produk. Kini hadir dengan menu bakpao kukus, risol mayo, dan dimsum yang digemari warga setempat.</p>
+                    <p>Duha Dapur adalah UMKM kuliner yang awalnya memproduksi bolu kemojo, namun mengalami penjualan rendah dan kerugian. Pemilik kemudian beralih ke bakpao dan dimsum goreng, meski sempat menghadapi berbagai kegagalan produksi hingga menemukan resep yang tepat. Ciri khas Duha Dapur adalah harga tetap Rp5.000,00 per porsi bakpao goreng, meskipun biaya produksi meningkat. Strategi ini dilakukan agar produk tetap terjangkau dan menjaga loyalitas pelanggan. Keberhasilan Duha Dapur didukung oleh konsistensi rasa, harga yang stabil, serta kerja sama dengan instansi seperti Eka Hospital dan RS Prima. Walau teknologi yang digunakan masih sederhana melalui WhatsApp, pendekatan personal membantu menjaga hubungan baik dengan pelanggan.</p>
                     <div class="about-highlights">
                         <div class="highlight"><span class="num">2005</span><span class="lbl">Berdiri</span></div>
                         <div class="highlight"><span class="num">2017</span><span class="lbl">Buka Toko</span></div>
@@ -299,12 +298,12 @@
                 <h2>Pesan Sekarang</h2>
             </div>
             <div class="contact-cards">
-                <div class="contact-card"><span class="icon">📍</span><h4>Lokasi</h4><p>Pangkalan Kerinci, Kabupaten Pelalawan, Riau</p></div>
+                <div class="contact-card"><span class="icon">📍</span><h4>Lokasi</h4><p>Jl.Srikandi, Pekanbaru</p></div>
                 <div class="contact-card"><span class="icon">🕐</span><h4>Jam Buka</h4><p>Setiap Hari<br>07.00 – 20.00 WIB</p></div>
                 <div class="contact-card"><span class="icon">📦</span><h4>Pesanan Besar</h4><p>Tersedia untuk acara, arisan, dan pesanan massal</p></div>
             </div>
             <div class="contact-cta">
-                <a href="https://wa.me/6281234567890" target="_blank" class="btn-whatsapp">💬 Chat via WhatsApp</a>
+                <a href="https://wa.me/6282286441258" target="_blank" class="btn-whatsapp">💬 Chat via WhatsApp</a>
             </div>
         </div>
     </section>
