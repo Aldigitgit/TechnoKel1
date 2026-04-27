@@ -59,7 +59,7 @@ class MitraController extends Controller
         $validator = Validator::make($request->all(), [
             'Nama_Mitra' => 'required|string|max:200',
             'Alamat' => 'required|string',
-            'Email' => 'required|email|unique:mitra,Email',
+            'Email' => 'required|email|unique:mitra,email',
             'Nomor_Telepon' => 'required|string|max:20',
             'Kemitraan' => 'required|in:Platinum,Gold,Silver',
             'Bergabung' => 'required|date',
@@ -121,10 +121,10 @@ class MitraController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'Mitra_Id' => 'required|exists:mitra,Mitra_Id',
+            'mitra_id' => 'required|exists:mitra,mitra_id',
             'Nama_Mitra' => 'required|string|max:200',
             'Alamat' => 'required|string',
-            'Email' => 'required|email|unique:mitra,Email,' . $request->Mitra_Id . ',Mitra_Id',
+            'Email' => 'required|email|unique:mitra,email,' . $request->mitra_id . ',mitra_id',
             'Nomor_Telepon' => 'required|string|max:20',
             'Kemitraan' => 'required|in:Platinum,Gold,Silver',
             'Bergabung' => 'required|date',
@@ -145,7 +145,7 @@ class MitraController extends Controller
                 ->withInput();
         }
 
-        $mitra = Mitra::findOrFail($request->Mitra_Id);
+        $mitra = Mitra::findOrFail($request->mitra_id);
 
         $mitra->nama_mitra = $request->Nama_Mitra;
         $mitra->alamat = $request->Alamat;

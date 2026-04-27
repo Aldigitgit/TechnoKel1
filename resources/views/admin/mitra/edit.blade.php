@@ -91,7 +91,7 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" name="Mitra_Id" value="{{ $dataMitra->mitra_id }}">
+        <input type="hidden" name="mitra_id" value="{{ $dataMitra->mitra_id }}">
         <div class="mt-3">
             <button class="btn btn-info mt-2 animate-up-2" type="submit">Simpan Perubahan</button>
             <a href="{{ route('mitra.list') }}" class="btn btn-secondary mt-2">Batal</a>
