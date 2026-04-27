@@ -17,7 +17,7 @@
                     <h1>Bakpao & Dimsum<br><em>Lezat</em> Setiap Hari</h1>
                     <p>Dikukus & digoreng segar setiap pagi. Aneka pilihan rasa dari resep terbaik Duha Pao sejak 2005.</p>
                     <div class="hero-buttons">
-                        <a href="{{ route('Pesan.create') }}" class="btn-primary">pesan Sekarang</a>
+                        <a href="{{ route('pesan.create') }}" class="btn-primary">pesan Sekarang</a>
                         <a href="#product-cards" class="btn-secondary">Lihat Menu</a>
                     </div>
                     <div class="hero-stats">
