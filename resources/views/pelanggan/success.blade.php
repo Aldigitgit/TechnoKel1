@@ -237,7 +237,7 @@
                 <a href="{{ route('home') }}" class="btn-primary-custom">
                     🏠 Kembali ke Beranda
                 </a>
-                <a href="{{ route('Pesan.create') }}" class="btn-secondary-custom">
+                <a href="{{ route('pesan.create') }}" class="btn-secondary-custom">
                     🛒 Pesan Lagi
                 </a>
             </div>

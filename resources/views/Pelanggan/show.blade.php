@@ -6,7 +6,7 @@
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('Pesan.list') }}">Pesanan</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('pesan.list') }}">Pesanan</a></li>
                     <li class="breadcrumb-item active">Detail Pesanan</li>
                 </ol>
             </nav>
@@ -14,7 +14,7 @@
             <p class="mb-0">Informasi lengkap pesanan Bakpao & Dimsum.</p>
         </div>
         <div class="btn-toolbar mb-2 mb-md-0">
-            <a href="{{ route('Pesan.list') }}" class="btn btn-sm btn-warning">Kembali</a>
+            <a href="{{ route('pesan.list') }}" class="btn btn-sm btn-warning">Kembali</a>
         </div>
     </div>
 
@@ -202,8 +202,8 @@
                     @endif
                 </div>
                 <div class="card-footer bg-white d-flex justify-content-end gap-2">
-                    <a href="{{ route('Pesan.list') }}" class="btn btn-secondary">Kembali</a>
-                    <a href="{{ route('Pesan.edit', $pesanan->pesanan_id) }}" class="btn btn-info">Edit Pesanan</a>
+                    <a href="{{ route('pesan.list') }}" class="btn btn-secondary">Kembali</a>
+                    <a href="{{ route('pesan.edit', $pesanan->pesanan_id) }}" class="btn btn-info">Edit Pesanan</a>
                     @if($pesanan->bukti_pembayaran)
                         <a href="{{ asset('storage/uploads/' . $pesanan->bukti_pembayaran) }}" download class="btn btn-success">Download
                             Bukti</a>
