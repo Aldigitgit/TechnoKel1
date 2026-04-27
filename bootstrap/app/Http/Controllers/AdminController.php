@@ -7,16 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller
+class adminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-     
-            $pagedata['dataAdmin'] = User::all();                 
-            return view('Admin.Admin.index', $pagedata);
+
+        $pagedata['dataadmin'] = User::all();
+        return view('admin.admin.index', $pagedata);
     }
 
 
@@ -25,7 +25,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('Admin.Admin.create');
+        return view('admin.admin.create');
     }
 
     /**
@@ -34,29 +34,32 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         // Kode untuk Validasi Request
-		//
-        $request->validate([
-		    'name'  => 'required|max:30',
-		    'email' => ['required','email'],
-        'password' => ['required',],
-        'role' => ['required', 'in:Administrator,Pelanggan,Mitra'],
-		],
-        ['name.required' => 'Silahkan diisikan namanya'
-        ]);
+        //
+        $request->validate(
+            [
+                'name' => 'required|max:30',
+                'email' => ['required', 'email'],
+                'password' => ['required',],
+                'role' => ['required', 'in:administrator,pelanggan,mitra'],
+            ],
+            [
+                'name.required' => 'Silahkan diisikan namanya'
+            ]
+        );
 
-		// Kode data user name & Email
-		// ...
+        // Kode data user name & Email
+        // ...
         $data['name'] = $request->name;
         $data['email'] = $request->email;
-		$data['password'] = Hash::make($request->password);
+        $data['password'] = Hash::make($request->password);
         $data['role'] = $request->role;
 
 
-	    User::create($data);
+        User::create($data);
 
-		// Kode untuk Redirect & Flash Data Success
-		// ...
-        return redirect()->route('Admin.list')->with('success', 'Penambahan Data Berhasil!');
+        // Kode untuk Redirect & Flash Data Success
+        // ...
+        return redirect()->route('admin.list')->with('success', 'Penambahan Data Berhasil!');
     }
 
     /**
@@ -72,9 +75,9 @@ class AdminController extends Controller
      */
     public function edit(string $param1)
     {
-        $pagedata['dataAdmin'] = User::findOrFail($param1);
+        $pagedata['dataadmin'] = User::findOrFail($param1);
 
-        return view('Admin.Admin.edit', $pagedata);
+        return view('admin.admin.edit', $pagedata);
     }
 
     /**
@@ -83,27 +86,28 @@ class AdminController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-		    'name'  => 'required|max:30',
-		    'email' => ['required','email'],
-        'password' => [
-		        'required',           // Wajib diisi
-		        'string',             // Harus berupa string
-		    ], 'role' => ['required', 'in:Administrator,Pelanggan,Mitra'],
-		],[
+            'name' => 'required|max:30',
+            'email' => ['required', 'email'],
+            'password' => [
+                'required',           // Wajib diisi
+                'string',             // Harus berupa string
+            ],
+            'role' => ['required', 'in:administrator,pelanggan,mitra'],
+        ], [
             'name.required' => 'Silahkan diisikan namanya'
         ]);
 
-        $userr_id=$request->userr_id;
+        $userr_id = $request->userr_id;
         $userr = User::findOrFail($userr_id);
 
-        $userr->name=$request->name;
-        $userr->email=$request->email;
-        $userr->role=$request->role;
-        $userr->password=$request->password;
+        $userr->name = $request->name;
+        $userr->email = $request->email;
+        $userr->role = $request->role;
+        $userr->password = $request->password;
 
         $userr->save();
 
-        return redirect()->route('Admin.list')->with('success', 'Perubahan Data Berhasil!');
+        return redirect()->route('admin.list')->with('success', 'Perubahan Data Berhasil!');
     }
 
     /**
@@ -115,7 +119,7 @@ class AdminController extends Controller
 
         $userr->delete();
 
-        return redirect()->route('Admin.list')->with('success', 'Penghapusan Data Berhasil!');
+        return redirect()->route('admin.list')->with('success', 'Penghapusan Data Berhasil!');
     }
 
 }

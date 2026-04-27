@@ -90,14 +90,14 @@
                                 </div>
 
 
-                                <input type="hidden" name="page" value="{{ $dataProduk->currentPage() }}">
+                                <input type="hidden" name="page" value="{{ $dataproduk->currentPage() }}">
                         </form>
                     </div>
                     <table class="table table-centered table-nowrap mb-0 rounded" id="table-produk">
                         <thead class="thead-light">
                             <tr>
                                 <th class="border-0 rounded-start">#</th>
-                                <th class="border-0">Nama Produk</th>
+                                <th class="border-0">Nama produk</th>
                                 <th class="border-0">Jumlah</th>
                                 <th class="border-0">Kategori</th>
                                 <th class="border-0">Tanggal Masuk</th>
@@ -106,9 +106,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                           @foreach ( $dataProduk as $row )
+                           @foreach ( $dataproduk as $row )
                            <tr>
-                            <td>{{ ($dataProduk->currentPage() - 1) * $dataProduk->perPage() + $loop->iteration }}</td>
+                            <td>{{ ($dataproduk->currentPage() - 1) * $dataproduk->perPage() + $loop->iteration }}</td>
                             <td>{{$row->nama_produk}}</td>
                             <td>{{$row->jumlah}}</td>
                             <td>{{$row->kategori}}</td>
@@ -134,8 +134,8 @@
                         </tbody>
                     </table>
                     <div class="mt-5">
-                        {{-- {{ $dataProduk->links('pagination::bootstrap-5') }} --}}
-                        {{ $dataProduk->links('pagination::bootstrap-5') }}
+                        {{-- {{ $dataproduk->links('pagination::bootstrap-5') }} --}}
+                        {{ $dataproduk->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
             </div>

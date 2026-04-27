@@ -6,11 +6,11 @@
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('pesan.list') }}">Pesanan</a></li>
-                    <li class="breadcrumb-item active">Detail Pesanan</li>
+                    <li class="breadcrumb-item"><a href="{{ route('pesan.list') }}">pesanan</a></li>
+                    <li class="breadcrumb-item active">Detail pesanan</li>
                 </ol>
             </nav>
-            <h2 class="h4">Detail Pesanan</h2>
+            <h2 class="h4">Detail pesanan</h2>
             <p class="mb-0">Informasi lengkap pesanan Bakpao & Dimsum.</p>
         </div>
         <div class="btn-toolbar mb-2 mb-md-0">
@@ -22,7 +22,7 @@
         <div class="col-12">
             <div class="card border-0 shadow mb-4">
                 <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">🧾 Pesanan #{{ str_pad($pesanan->pesanan_id, 6, '0', STR_PAD_LEFT) }}</h5>
+                    <h5 class="mb-0">🧾 pesanan #{{ str_pad($pesanan->pesanan_id, 6, '0', STR_PAD_LEFT) }}</h5>
                     <span>
                         @if($pesanan->status == 'pending') <span class="badge bg-warning text-dark">Pending</span>
                         @elseif($pesanan->status == 'confirmed') <span class="badge bg-info">Dikonfirmasi</span>
@@ -41,15 +41,15 @@
                                 <div class="card-body">
                                     <table class="table table-sm">
                                         <tr>
-                                            <th width="40%">Jenis Produk</th>
+                                            <th width="40%">Jenis produk</th>
                                             <td>{{ $pesanan->jenis_produk }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Varian Produk</th>
+                                            <th>Varian produk</th>
                                             <td>{{ $pesanan->varian_produk }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Jumlah Pesanan</th>
+                                            <th>Jumlah pesanan</th>
                                             <td>{{ $pesanan->jumlah_pesanan }} pcs</td>
                                         </tr>
                                         <tr>
@@ -59,7 +59,7 @@
                                         </tr>
                                         @if($pesanan->catatan_pesanan)
                                             <tr>
-                                                <th>Catatan Pesanan</th>
+                                                <th>Catatan pesanan</th>
                                                 <td>{{ $pesanan->catatan_pesanan }}</td>
                                             </tr>
                                         @endif
@@ -124,7 +124,8 @@
                                         <tr>
                                             <th width="40%">Total Harga</th>
                                             <td class="fw-bold text-success">Rp
-                                                {{ number_format($pesanan->total_harga, 0, ',', '.') }}</td>
+                                                {{ number_format($pesanan->total_harga, 0, ',', '.') }}
+                                            </td>
                                         </tr>
                                         @if($pesanan->dp_dibayar)
                                             <tr>
@@ -177,8 +178,8 @@
                                                 class="img-fluid rounded border" style="max-height: 300px;">
                                         </a>
                                         <div class="mt-2">
-                                            <a href="{{ asset('storage/uploads/' . $pesanan->bukti_pembayaran) }}" target="_blank"
-                                                class="btn btn-sm btn-primary">Lihat Full</a>
+                                            <a href="{{ asset('storage/uploads/' . $pesanan->bukti_pembayaran) }}"
+                                                target="_blank" class="btn btn-sm btn-primary">Lihat Full</a>
                                             <a href="{{ asset('storage/uploads/' . $pesanan->bukti_pembayaran) }}" download
                                                 class="btn btn-sm btn-success">Download</a>
                                         </div>
@@ -203,9 +204,10 @@
                 </div>
                 <div class="card-footer bg-white d-flex justify-content-end gap-2">
                     <a href="{{ route('pesan.list') }}" class="btn btn-secondary">Kembali</a>
-                    <a href="{{ route('pesan.edit', $pesanan->pesanan_id) }}" class="btn btn-info">Edit Pesanan</a>
+                    <a href="{{ route('pesan.edit', $pesanan->pesanan_id) }}" class="btn btn-info">Edit pesanan</a>
                     @if($pesanan->bukti_pembayaran)
-                        <a href="{{ asset('storage/uploads/' . $pesanan->bukti_pembayaran) }}" download class="btn btn-success">Download
+                        <a href="{{ asset('storage/uploads/' . $pesanan->bukti_pembayaran) }}" download
+                            class="btn btn-success">Download
                             Bukti</a>
                     @endif
                 </div>

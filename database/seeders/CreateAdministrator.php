@@ -6,18 +6,18 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class CreateAdministrator extends Seeder
+class Createadministrator extends Seeder
 {
     public function run(): void
     {
         if (!User::where('email', 'admin@gmail.com')->exists()) {
             User::create([
-                'name' => 'Administrator',
+                'name' => 'administrator',
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('admin123'),
-                'role' => 'Administrator'
+                'role' => 'administrator'
             ]);
-            $this->command->info('Admin user created successfully!');
+            $this->command->info('admin user created successfully!');
         }
     }
 }

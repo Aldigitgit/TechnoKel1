@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Produk extends Model
+class produk extends Model
 {
     use HasFactory;
-    
+
     protected $primaryKey = 'produk_id';
     protected $table = 'produk';
 

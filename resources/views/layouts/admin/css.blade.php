@@ -1,2 +1,2 @@
 <!-- Volt CSS -->
-<link type="text/css" href="{{ asset('Assets-Admin/css/volt.css') }}" rel="stylesheet">
+<link type="text/css" href="{{ asset('Assets-admin/css/volt.css') }}" rel="stylesheet">

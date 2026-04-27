@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Pesan;
+use App\Models\pesan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class PesanController extends Controller
+class pesanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $dataPesan = Pesan::latest()->paginate(10);
-        return view('pelanggan.index', compact('dataPesan'));
+        $datapesan = pesan::latest()->paginate(10);
+        return view('pelanggan.index', compact('datapesan'));
     }
 
     /**
@@ -69,7 +69,7 @@ class PesanController extends Controller
         }
 
         // Daftar harga produk
-        $hargaProduk = [
+        $hargaproduk = [
             // Bakpao Manis
             'Bakpao Kacang Merah' => 5000,
             'Bakpao Coklat Lumer' => 5000,
@@ -93,7 +93,7 @@ class PesanController extends Controller
         ];
 
         // Hitung total harga
-        $hargaSatuan = $hargaProduk[$request->varian_produk] ?? 0;
+        $hargaSatuan = $hargaproduk[$request->varian_produk] ?? 0;
         $totalHarga = $hargaSatuan * $request->jumlah_pesanan;
 
         // Siapkan data untuk disimpan
@@ -139,11 +139,11 @@ class PesanController extends Controller
         }
 
         // Simpan data ke database
-        $pesanan = Pesan::create($data);
+        $pesanan = pesan::create($data);
 
         // Redirect ke halaman sukses
         return redirect()->route('pesan.success', $pesanan->pesanan_id)
-            ->with('success', 'Pesanan berhasil dibuat! Kami akan menghubungi Anda segera.');
+            ->with('success', 'pesanan berhasil dibuat! Kami akan menghubungi Anda segera.');
     }
 
     /**
@@ -151,7 +151,7 @@ class PesanController extends Controller
      */
     public function success(string $id)
     {
-        $pesanan = Pesan::findOrFail($id);
+        $pesanan = pesan::findOrFail($id);
         return view('pelanggan.success', compact('pesanan'));
     }
 
@@ -160,7 +160,7 @@ class PesanController extends Controller
      */
     public function show(string $id)
     {
-        $pesanan = Pesan::findOrFail($id);
+        $pesanan = pesan::findOrFail($id);
         return view('pelanggan.show', compact('pesanan'));
     }
 
@@ -169,8 +169,8 @@ class PesanController extends Controller
      */
     public function edit(string $id)
     {
-        $dataPesan = Pesan::findOrFail($id);
-        return view('pelanggan.edit', compact('dataPesan'));
+        $datapesan = pesan::findOrFail($id);
+        return view('pelanggan.edit', compact('datapesan'));
     }
 
     /**
@@ -205,7 +205,7 @@ class PesanController extends Controller
                 ->withInput();
         }
 
-        $pesanan = Pesan::findOrFail($request->pesanan_id);
+        $pesanan = pesan::findOrFail($request->pesanan_id);
 
         // Update data
         $pesanan->jenis_produk = $request->jenis_produk;
@@ -229,7 +229,7 @@ class PesanController extends Controller
         }
 
         // Update total harga jika varian atau jumlah berubah
-        $hargaProduk = [
+        $hargaproduk = [
             // Bakpao Manis
             'Bakpao Kacang Merah' => 5000,
             'Bakpao Coklat Lumer' => 5000,
@@ -251,7 +251,7 @@ class PesanController extends Controller
             'Dimsum Keju' => 6000,
             'Dimsum Mix' => 6000,
         ];
-        $hargaSatuan = $hargaProduk[$request->varian_produk] ?? 0;
+        $hargaSatuan = $hargaproduk[$request->varian_produk] ?? 0;
         $pesanan->total_harga = $hargaSatuan * $request->jumlah_pesanan;
 
         // Handling upload file bukti pembayaran
@@ -280,7 +280,7 @@ class PesanController extends Controller
      */
     public function destroy(string $id)
     {
-        $pesanan = Pesan::findOrFail($id);
+        $pesanan = pesan::findOrFail($id);
 
         // Hapus file bukti pembayaran jika ada
 // Hapus file bukti pembayaran jika ada
@@ -304,7 +304,7 @@ class PesanController extends Controller
             'status' => 'required|in:pending,confirmed,processing,ready,completed,cancelled',
         ]);
 
-        $pesanan = Pesan::findOrFail($id);
+        $pesanan = pesan::findOrFail($id);
         $pesanan->status = $request->status;
 
         // Set waktu konfirmasi jika status menjadi confirmed

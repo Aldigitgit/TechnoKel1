@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pelanggan;
+use App\Models\pelanggan;
 use Illuminate\Http\Request;
 
-class PelangganController extends Controller
+class pelangganController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $pagedata['dataPelanggan'] = Pelanggan::all();
+        $pagedata['datapelanggan'] = pelanggan::all();
         return view('admin.pelanggan.index', $pagedata);
     }
 
@@ -44,7 +44,7 @@ class PelangganController extends Controller
         $data['email'] = $request->email;
         $data['phone'] = $request->phone;
 
-        Pelanggan::create($data);
+        pelanggan::create($data);
 
         return redirect()->route('pelanggan.list')->with('success', 'Penambahan Data Berhasil!');
     }
@@ -62,9 +62,9 @@ class PelangganController extends Controller
      */
     public function edit(string $param1)
     {
-        $pagedata['dataPelanggan'] = Pelanggan::findOrFail($param1);
+        $pagedata['datapelanggan'] = pelanggan::findOrFail($param1);
 
-        return view('Admin.pelanggan.edit', $pagedata);
+        return view('admin.pelanggan.edit', $pagedata);
     }
 
     /**
@@ -81,15 +81,15 @@ class PelangganController extends Controller
             'email' => ['required', 'email'],
             'phone' => ['required', 'numeric'],
         ]);
-        $pelanggan_id=$request->pelanggan_id;
-        $pelanggan = Pelanggan::findOrFail($pelanggan_id);
+        $pelanggan_id = $request->pelanggan_id;
+        $pelanggan = pelanggan::findOrFail($pelanggan_id);
 
-        $pelanggan->first_name=$request->first_name;
-        $pelanggan->last_name=$request->last_name;
-        $pelanggan->birthday=$request->birthday;
-        $pelanggan->gender=$request->gender;
-        $pelanggan->email=$request->email;
-        $pelanggan->phone=$request->phone;
+        $pelanggan->first_name = $request->first_name;
+        $pelanggan->last_name = $request->last_name;
+        $pelanggan->birthday = $request->birthday;
+        $pelanggan->gender = $request->gender;
+        $pelanggan->email = $request->email;
+        $pelanggan->phone = $request->phone;
 
         $pelanggan->save();
 
@@ -101,7 +101,7 @@ class PelangganController extends Controller
      */
     public function destroy(string $param1)
     {
-        $pelanggan = Pelanggan::findOrFail($param1);
+        $pelanggan = pelanggan::findOrFail($param1);
 
         $pelanggan->delete();
 

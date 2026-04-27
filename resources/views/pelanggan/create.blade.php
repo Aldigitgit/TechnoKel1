@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pesan Bakpao & Dimsum | Duha Pao</title>
+  <title>pesan Bakpao & Dimsum | Duha Pao</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
@@ -308,7 +308,7 @@
 
       <div class="order-card">
         <div class="card-header-custom">
-          <h2>✨ Pesan Duha Pao ✨</h2>
+          <h2>✨ pesan Duha Pao ✨</h2>
           <p>Isi form di bawah untuk memesan bakpao, risol, dan dimsum favorit Anda</p>
         </div>
 
@@ -327,7 +327,7 @@
               <h5 class="section-title">📋 Detail Pemesanan</h5>
               <div class="row">
                 <div class="col-md-6 mb-3">
-                  <label for="jenis_produk" class="form-label required">Jenis Produk</label>
+                  <label for="jenis_produk" class="form-label required">Jenis produk</label>
                   <select class="form-select" id="jenis_produk" name="jenis_produk" required>
                     <option value="">Pilih jenis produk...</option>
                     <option value="Bakpao Manis">🥟 Bakpao Manis</option>
@@ -337,7 +337,7 @@
                   </select>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="varian_produk" class="form-label required">Varian Produk</label>
+                  <label for="varian_produk" class="form-label required">Varian produk</label>
                   <select class="form-select" id="varian_produk" name="varian_produk" required>
                     <option value="">Pilih varian...</option>
                   </select>
@@ -345,7 +345,7 @@
               </div>
               <div class="row">
                 <div class="col-md-6 mb-3">
-                  <label for="jumlah_pesanan" class="form-label required">Jumlah Pesanan (pcs)</label>
+                  <label for="jumlah_pesanan" class="form-label required">Jumlah pesanan (pcs)</label>
                   <input type="number" class="form-control" id="jumlah_pesanan" name="jumlah_pesanan" placeholder="Contoh: 10" min="1" required>
                 </div>
                 <div class="col-md-6 mb-3">
@@ -354,7 +354,7 @@
                 </div>
               </div>
               <div class="mb-3">
-                <label for="catatan_pesanan" class="form-label">Catatan Pesanan (Opsional)</label>
+                <label for="catatan_pesanan" class="form-label">Catatan pesanan (Opsional)</label>
                 <textarea class="form-control" id="catatan_pesanan" name="catatan_pesanan" rows="2" placeholder="Contoh: tidak pakai plastik, potong jadi 4, dll"></textarea>
               </div>
             </div>
@@ -436,7 +436,7 @@
 
             <div class="d-grid">
               <button type="submit" class="btn-submit" id="submitBtn">
-                🛒 Pesan Sekarang
+                🛒 pesan Sekarang
               </button>
             </div>
 

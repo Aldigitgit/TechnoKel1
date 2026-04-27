@@ -6,16 +6,16 @@
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active">Pesanan</li>
+                <li class="breadcrumb-item active">pesanan</li>
             </ol>
         </nav>
-        <h2 class="h4">Data Pesanan</h2>
+        <h2 class="h4">Data pesanan</h2>
         <p class="mb-0">Daftar semua pesanan Bakpao & Dimsum yang masuk.</p>
     </div>
     <div class="btn-toolbar mb-2 mb-md-0">
         <a href="{{ route('pesan.create') }}" class="btn btn-sm btn-success">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
-            Tambah Pesanan
+            Tambah pesanan
         </a>
     </div>
 </div>
@@ -32,11 +32,11 @@
         <div class="table-responsive">
             <table class="table table-centered table-nowrap mb-0 rounded">
                 <thead class="thead-light">
-                    <tr><th>#</th><th>Tgl Pesan</th><th>Nama Pemesan</th><th>Jenis Produk</th><th>Varian</th><th>Jumlah</th><th>Tgl Ambil</th><th>Total Harga</th><th>Status</th><th>Aksi</th></tr>
+                    <tr><th>#</th><th>Tgl pesan</th><th>Nama Pemesan</th><th>Jenis produk</th><th>Varian</th><th>Jumlah</th><th>Tgl Ambil</th><th>Total Harga</th><th>Status</th><th>Aksi</th></tr>
                 </thead>
                 <tbody>
-                    @php $no = ($dataPesan->currentPage() - 1) * $dataPesan->perPage(); @endphp
-                    @foreach ($dataPesan as $row)
+                    @php $no = ($datapesan->currentPage() - 1) * $datapesan->perPage(); @endphp
+                    @foreach ($datapesan as $row)
                     <tr>
                         <td>{{ ++$no }}</td>
                         <td>{{ $row->created_at ? $row->created_at->format('d/m/Y H:i') : '-' }}</td>
@@ -69,7 +69,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="mt-4">{{ $dataPesan->links('pagination::bootstrap-5') }}</div>
+            <div class="mt-4">{{ $datapesan->links('pagination::bootstrap-5') }}</div>
         </div>
     </div>
 </div>

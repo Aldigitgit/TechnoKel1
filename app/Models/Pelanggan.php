@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Pelanggan extends Model
+class pelanggan extends Model
 {
     use HasFactory;
 

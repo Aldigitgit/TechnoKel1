@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Pelanggan;
+use App\Models\pelanggan;
 use Illuminate\Database\Seeder;
 
-class CreatePelanggan extends Seeder
+class Createpelanggan extends Seeder
 {
     public function run(): void
     {
@@ -37,8 +37,8 @@ class CreatePelanggan extends Seeder
         ];
 
         foreach ($pelangganData as $data) {
-            if (!Pelanggan::where('email', $data['email'])->exists()) {
-                Pelanggan::create($data);
+            if (!pelanggan::where('email', $data['email'])->exists()) {
+                pelanggan::create($data);
             }
         }
     }

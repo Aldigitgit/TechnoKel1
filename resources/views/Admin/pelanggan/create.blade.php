@@ -16,11 +16,11 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">DashBoard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('pelanggan.list') }}">Pelanggan</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tambah Pelanggan</li>
+                <li class="breadcrumb-item"><a href="{{ route('pelanggan.list') }}">pelanggan</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah pelanggan</li>
             </ol>
         </nav>
-        <h2 class="h4">Tambah Pelanggan</h2>
+        <h2 class="h4">Tambah pelanggan</h2>
         <p class="mb-0">Form tambah pelanggan baru.</p>
     </div>
     <div class="btn-toolbar mb-2 mb-md-0">
@@ -41,7 +41,7 @@
 @endif
 
 <div class="card card-body border-0 shadow mb-4">
-    <h2 class="h5 mb-4">Informasi Pelanggan</h2>
+    <h2 class="h5 mb-4">Informasi pelanggan</h2>
     <form action="{{ route('pelanggan.store') }}" method="post">
         @csrf
         <div class="row">

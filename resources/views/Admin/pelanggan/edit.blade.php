@@ -16,11 +16,11 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">DashBoard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('pelanggan.list') }}">Pelanggan</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Edit Pelanggan</li>
+                <li class="breadcrumb-item"><a href="{{ route('pelanggan.list') }}">pelanggan</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit pelanggan</li>
             </ol>
         </nav>
-        <h2 class="h4">Edit Pelanggan</h2>
+        <h2 class="h4">Edit pelanggan</h2>
         <p class="mb-0">Form perubahan data pelanggan.</p>
     </div>
     <div class="btn-toolbar mb-2 mb-md-0">
@@ -41,19 +41,19 @@
 @endif
 
 <div class="card card-body border-0 shadow mb-4">
-    <h2 class="h5 mb-4">Informasi Pelanggan</h2>
+    <h2 class="h5 mb-4">Informasi pelanggan</h2>
     <form action="{{ route('pelanggan.update') }}" method="post">
         @csrf
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="first_name">Nama Depan <span class="text-danger">*</span></label>
                 <input class="form-control" id="first_name" type="text" placeholder="Masukan nama depan"
-                    name="first_name" value="{{ old('first_name', $dataPelanggan->first_name) }}" required>
+                    name="first_name" value="{{ old('first_name', $datapelanggan->first_name) }}" required>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="last_name">Nama Belakang <span class="text-danger">*</span></label>
                 <input class="form-control" id="last_name" type="text" placeholder="Masukan nama belakang"
-                    name="last_name" value="{{ old('last_name', $dataPelanggan->last_name) }}" required>
+                    name="last_name" value="{{ old('last_name', $datapelanggan->last_name) }}" required>
             </div>
         </div>
         <div class="row">
@@ -66,15 +66,15 @@
                         </svg>
                     </span>
                     <input class="form-control datepicker-input" id="birthday" name="birthday" type="date" 
-                        value="{{ old('birthday', $dataPelanggan->birthday) }}" required>
+                        value="{{ old('birthday', $datapelanggan->birthday) }}" required>
                 </div>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="gender">Jenis Kelamin <span class="text-danger">*</span></label>
                 <select class="form-select" id="gender" name="gender" required>
                     <option value="">Pilih Jenis Kelamin</option>
-                    <option value="Female" {{ old('gender', $dataPelanggan->gender) == 'Female' ? 'selected' : '' }}>Perempuan</option>
-                    <option value="Male" {{ old('gender', $dataPelanggan->gender) == 'Male' ? 'selected' : '' }}>Laki-laki</option>
+                    <option value="Female" {{ old('gender', $datapelanggan->gender) == 'Female' ? 'selected' : '' }}>Perempuan</option>
+                    <option value="Male" {{ old('gender', $datapelanggan->gender) == 'Male' ? 'selected' : '' }}>Laki-laki</option>
                 </select>
             </div>
         </div>
@@ -82,15 +82,15 @@
             <div class="col-md-6 mb-3">
                 <label for="email">Email <span class="text-danger">*</span></label>
                 <input class="form-control" id="email" type="email" placeholder="name@company.com"
-                    name="email" value="{{ old('email', $dataPelanggan->email) }}" required>
+                    name="email" value="{{ old('email', $datapelanggan->email) }}" required>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="phone">Nomor Telepon <span class="text-danger">*</span></label>
                 <input class="form-control" id="phone" type="text" placeholder="081234567890"
-                    name="phone" value="{{ old('phone', $dataPelanggan->phone) }}" required>
+                    name="phone" value="{{ old('phone', $datapelanggan->phone) }}" required>
             </div>
         </div>
-        <input type="hidden" name="pelanggan_id" value="{{ $dataPelanggan->pelanggan_id }}">
+        <input type="hidden" name="pelanggan_id" value="{{ $datapelanggan->pelanggan_id }}">
         <div class="mt-3">
             <button class="btn btn-info mt-2 animate-up-2" type="submit">Simpan Perubahan</button>
             <a href="{{ route('pelanggan.list') }}" class="btn btn-secondary mt-2">Batal</a>

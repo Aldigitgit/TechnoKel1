@@ -36,38 +36,40 @@ class AuthController extends Controller
 
     //     // database
     // }
-    public function login()  {
-   
-            return view('login');
+    public function login()
+    {
 
-        
+        return view('login');
+
+
     }
 
-    public function kirimlogin(request $request)  {
+    public function kirimlogin(request $request)
+    {
 
-        $Admin = User::where('email', $request->email)->first();
-    if ($Admin && Hash::check($request->password, $Admin->password)) {
+        $admin = User::where('email', $request->email)->first();
+        if ($admin && Hash::check($request->password, $admin->password)) {
 
-        Auth::login($Admin);
-        Auth::user()->id;
-        Auth::user()->email;
-        Auth::user()->name;
+            Auth::login($admin);
+            Auth::user()->id;
+            Auth::user()->email;
+            Auth::user()->name;
 
 
-	      // Kode Redirect ke halaman dashboard
-	      // ...
-          return redirect()->route('dashboard')->with('success', 'Login Berhasil!');
+            // Kode Redirect ke halaman dashboard
+            // ...
+            return redirect()->route('dashboard')->with('success', 'Login Berhasil!');
 
-    }else{
+        } else {
             session()->flush();
             return redirect()->route('login')->with('error', 'eror');
         }
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
         // if ($username==$login && $password==$login) {
         //     // session penyimpanan=>isi
         //     session([
@@ -86,13 +88,14 @@ class AuthController extends Controller
         // }
     }
 
-    function logout(Request $request){
+    function logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-    
+
         return view('login');
-    
+
     }
-    
+
 }

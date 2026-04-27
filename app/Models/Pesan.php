@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pesan extends Model
+class pesan extends Model
 {
     use HasFactory;
 
@@ -19,21 +19,21 @@ class Pesan extends Model
         'jumlah_pesanan',
         'tanggal_pengambilan',
         'catatan_pesanan',
-        
+
         // Detail Pengiriman
         'ambil_di_toko',
         'alamat_pengiriman',
         'nama_penerima',
         'kontak_penerima',
-        
+
         // Detail Pemesan
         'nama_pemesan',
         'kontak_pemesan',
         'email_pemesan',
-        
+
         // Status
         'status',
-        
+
         // Informasi Tambahan
         'instruksi_khusus',
         'total_harga',

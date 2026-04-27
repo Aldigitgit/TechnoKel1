@@ -16,11 +16,11 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">DashBoard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('produk.list') }}">Produk</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tambah Produk</li>
+                <li class="breadcrumb-item"><a href="{{ route('produk.list') }}">produk</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah produk</li>
             </ol>
         </nav>
-        <h2 class="h4">Tambah Produk</h2>
+        <h2 class="h4">Tambah produk</h2>
         <p class="mb-0">Form tambah produk baru (Bakpao & Dimsum).</p>
     </div>
     <div class="btn-toolbar mb-2 mb-md-0">
@@ -41,12 +41,12 @@
 @endif
 
 <div class="card card-body border-0 shadow mb-4">
-    <h2 class="h5 mb-4">Informasi Produk</h2>
+    <h2 class="h5 mb-4">Informasi produk</h2>
     <form action="{{ route('produk.store') }}" method="post">
         @csrf
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label for="nama_produk">Nama Produk <span class="text-danger">*</span></label>
+                <label for="nama_produk">Nama produk <span class="text-danger">*</span></label>
                 <input class="form-control" id="nama_produk" type="text" placeholder="Contoh: Bakpao Coklat"
                     name="nama_produk" value="{{ old('nama_produk') }}" required>
             </div>

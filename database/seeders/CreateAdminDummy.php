@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class CreateAdminDummy extends Seeder
+class CreateadminDummy extends Seeder
 {
     /**
      * Run the database seeds.
@@ -20,7 +20,7 @@ class CreateAdminDummy extends Seeder
                 'name' => $faker->name,
                 'email' => $faker->unique()->safeEmail,
                 'password' => $faker->password,
-                'role' => $faker->randomElement(['Administrator','Pelanggan','Mitra']),
+                'role' => $faker->randomElement(['administrator', 'pelanggan', 'mitra']),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

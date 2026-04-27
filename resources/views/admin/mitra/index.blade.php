@@ -16,10 +16,10 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">DashBoard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data Mitra</li>
+                <li class="breadcrumb-item active" aria-current="page">Data mitra</li>
             </ol>
         </nav>
-        <h2 class="h4">Data Mitra</h2>
+        <h2 class="h4">Data mitra</h2>
         <p class="mb-0">Daftar semua mitra yang terdaftar.</p>
     </div>
     <div class="btn-toolbar mb-2 mb-md-0">
@@ -28,7 +28,7 @@
                 xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
             </svg>
-            Tambah Mitra
+            Tambah mitra
         </a>
     </div>
 </div>
@@ -47,7 +47,7 @@
                 <thead class="thead-light">
                     <tr>
                         <th class="border-0 rounded-start">#</th>
-                        <th class="border-0">Nama Mitra</th>
+                        <th class="border-0">Nama mitra</th>
                         <th class="border-0">Alamat</th>
                         <th class="border-0">Email</th>
                         <th class="border-0">Telepon</th>
@@ -58,9 +58,9 @@
                 </thead>
                 <tbody>
                     @php
-                        $no = ($dataMitra->currentPage() - 1) * $dataMitra->perPage();
+                        $no = ($datamitra->currentPage() - 1) * $datamitra->perPage();
                     @endphp
-                    @forelse ($dataMitra as $row)
+                    @forelse ($datamitra as $row)
                         <tr>
                             <td>{{ ++$no }}</td>
                             <td class="fw-semibold">{{ $row->nama_mitra }}</td>
@@ -80,12 +80,12 @@
                             <td>
                                 <div class="btn-group" role="group">
                                     <!-- CARA 1: Menggunakan named route dengan array -->
-                                    <a href="{{ route('mitra.edit', ['Mitra_Id' => $row->mitra_id]) }}" class="btn btn-info btn-sm">
+                                    <a href="{{ route('mitra.edit', ['mitra_Id' => $row->mitra_id]) }}" class="btn btn-info btn-sm">
                                         Edit
                                     </a>
                                     
                                     <!-- CARA 2: Menggunakan URL manual (alternatif) -->
-                                    <!-- <a href="/Mitra/edit/{{ $row->mitra_id }}" class="btn btn-info btn-sm">Edit</a> -->
+                                    <!-- <a href="/mitra/edit/{{ $row->mitra_id }}" class="btn btn-info btn-sm">Edit</a> -->
                                     
                                     <form action="{{ route('mitra.destroy', $row->mitra_id) }}" method="POST" class="d-inline" 
                                           onsubmit="return confirm('Yakin ingin menghapus mitra {{ $row->nama_mitra }}?')">
@@ -107,7 +107,7 @@
              </table>
             
             <div class="mt-4">
-                {{ $dataMitra->appends(request()->query())->links('pagination::bootstrap-5') }}
+                {{ $datamitra->appends(request()->query())->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>

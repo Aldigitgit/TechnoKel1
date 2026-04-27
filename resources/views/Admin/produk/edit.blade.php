@@ -17,13 +17,13 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">DashBoard</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a href="{{ route('produk.list') }}">Produk</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="{{ route('produk.list') }}">produk</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('produk.create') }}">Edit
                             Data</a></li>
                 </ol>
             </nav>
-            <h2 class="h4">Edit Produk</h2>
-            <p class="mb-0">Form perubahan data Produk.</p>
+            <h2 class="h4">Edit produk</h2>
+            <p class="mb-0">Form perubahan data produk.</p>
         </div>
         <div class="btn-toolbar mb-2 mb-md-0">
             <a href="{{ route('produk.list') }}" class="btn btn-sm btn-warning d-inline-flex align-items-center text-white">
@@ -54,16 +54,16 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <div>
-                        <label for="Nama_Produk">Nama Produk</label>
-                        <input class="form-control" id="Nama_Produk" type="text" placeholder="Enter your first name"
-                            name="Nama_Produk" value="{{ $dataProduk->Nama_Produk }}">
+                        <label for="Nama_produk">Nama produk</label>
+                        <input class="form-control" id="Nama_produk" type="text" placeholder="Enter your first name"
+                            name="Nama_produk" value="{{ $dataproduk->Nama_produk }}">
                     </div>
                 </div>
                 <div class="col-md-6 mb-3">
                     <div>
-                        <label for="jumlah">Jumlah Produk</label>
+                        <label for="jumlah">Jumlah produk</label>
                         <input class="form-control" id="jumlah" type="number" placeholder="Also your last name"
-                            name="jumlah" value="{{ $dataProduk->jumlah }}">
+                            name="jumlah" value="{{ $dataproduk->jumlah }}">
                     </div>
                 </div>
             </div>
@@ -74,15 +74,16 @@
                     <select class="form-select mb-0" id="kategori" aria-label="kategori select example" name="kategori"
                         value="{{ old('kategori') }}">
                         <option selected="">kategori</option>
-                        <option value="Bakpao Manis" {{ $dataProduk->kategori == "Bakpao Manis" ? "selected" : "" }}>Bakpao
+                        <option value="Bakpao Manis" {{ $dataproduk->kategori == "Bakpao Manis" ? "selected" : "" }}>Bakpao
                             Manis</option>
-                        <option value="Bakpao Gurih" {{ $dataProduk->kategori == "Bakpao Gurih" ? "selected" : "" }}>Bakpao
+                        <option value="Bakpao Gurih" {{ $dataproduk->kategori == "Bakpao Gurih" ? "selected" : "" }}>Bakpao
                             Gurih</option>
-                        <option value="Bakpao Spesial" {{ $dataProduk->kategori == "Bakpao Spesial" ? "selected" : "" }}>Bakpao
+                        <option value="Bakpao Spesial" {{ $dataproduk->kategori == "Bakpao Spesial" ? "selected" : "" }}>
+                            Bakpao
                             Spesial</option>
-                        <option value="Dimsum Goreng" {{ $dataProduk->kategori == "Dimsum Goreng" ? "selected" : "" }}>Dimsum
+                        <option value="Dimsum Goreng" {{ $dataproduk->kategori == "Dimsum Goreng" ? "selected" : "" }}>Dimsum
                             Goreng</option>
-                        <option value="Risol Mayo" {{ $dataProduk->kategori == "Risol Mayo" ? "selected" : "" }}>Risol Mayo
+                        <option value="Risol Mayo" {{ $dataproduk->kategori == "Risol Mayo" ? "selected" : "" }}>Risol Mayo
                         </option>
                     </select>
                 </div>
@@ -94,7 +95,7 @@
                                     clip-rule="evenodd"></path>
                             </svg> </span><input data-datepicker="" class="form-control datepicker-input" id="tgl_masuk"
                             name="tgl_masuk" type="date" placeholder="dd/mm/yyyy" required=""
-                            value="{{ $dataProduk->tgl_masuk }}"></div>
+                            value="{{ $dataproduk->tgl_masuk }}"></div>
                 </div>
             </div>
             <div class="row">
@@ -106,10 +107,10 @@
                                     clip-rule="evenodd"></path>
                             </svg> </span><input data-datepicker="" class="form-control datepicker-input" id="tgl_expired"
                             name="tgl_expired" type="date" placeholder="dd/mm/yyyy" required=""
-                            value="{{ $dataProduk->tgl_expired }}"></div>
+                            value="{{ $dataproduk->tgl_expired }}"></div>
                 </div>
             </div>
-            <input type="hidden" name="produk_id" value="{{ $dataProduk->produk_id }}" />
+            <input type="hidden" name="produk_id" value="{{ $dataproduk->produk_id }}" />
             <div class="mt-3">
                 <button class="btn btn-info mt-2 animate-up-2" type="submit">Simpan perubahan</button>
             </div>

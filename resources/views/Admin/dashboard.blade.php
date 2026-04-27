@@ -14,8 +14,8 @@
                             <svg width="26" height="26" fill="none" stroke="#f59e0b" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         </div>
                         <div>
-                            <p class="mb-0 text-muted small">Total Mitra</p>
-                            <h4 class="mb-0 fw-bold">{{ $Mitra }}</h4>
+                            <p class="mb-0 text-muted small">Total mitra</p>
+                            <h4 class="mb-0 fw-bold">{{ $mitra }}</h4>
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-0 pt-0 pb-2 text-end">
@@ -31,8 +31,8 @@
                             <svg width="26" height="26" fill="none" stroke="#10b981" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                         </div>
                         <div>
-                            <p class="mb-0 text-muted small">Total Pelanggan</p>
-                            <h4 class="mb-0 fw-bold">{{ $Pelanggan }}</h4>
+                            <p class="mb-0 text-muted small">Total pelanggan</p>
+                            <h4 class="mb-0 fw-bold">{{ $pelanggan }}</h4>
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-0 pt-0 pb-2 text-end">
@@ -48,8 +48,8 @@
                             <svg width="26" height="26" fill="none" stroke="#3b82f6" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10"/></svg>
                         </div>
                         <div>
-                            <p class="mb-0 text-muted small">Total Produk</p>
-                            <h4 class="mb-0 fw-bold">{{ $TotalProduk }}</h4>
+                            <p class="mb-0 text-muted small">Total produk</p>
+                            <h4 class="mb-0 fw-bold">{{ $Totalproduk }}</h4>
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-0 pt-0 pb-2 text-end">
@@ -65,8 +65,8 @@
                             <svg width="26" height="26" fill="none" stroke="#ec4899" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                         </div>
                         <div>
-                            <p class="mb-0 text-muted small">Total Pesanan</p>
-                            <h4 class="mb-0 fw-bold">{{ $Pesan }}</h4>
+                            <p class="mb-0 text-muted small">Total pesanan</p>
+                            <h4 class="mb-0 fw-bold">{{ $pesan }}</h4>
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-0 pt-0 pb-2 text-end">
@@ -83,7 +83,7 @@
         {{-- TABEL PESANAN TERBARU --}}
         <div class="card border-0 shadow mb-4">
             <div class="card-header d-flex align-items-center justify-content-between">
-                <h2 class="fs-5 fw-bold mb-0">🥟 Pesanan Terbaru</h2>
+                <h2 class="fs-5 fw-bold mb-0">🥟 pesanan Terbaru</h2>
                 <a href="{{ route('pesan.list') }}" class="btn btn-sm btn-primary">Lihat Semua</a>
             </div>
             <div class="card-body p-0">
@@ -93,7 +93,7 @@
                             <tr>
                                 <th class="ps-3">#</th>
                                 <th>Nama Pemesan</th>
-                                <th>Jenis Produk</th>
+                                <th>Jenis produk</th>
                                 <th>Varian</th>
                                 <th>Jumlah</th>
                                 <th>Tgl Ambil</th>
@@ -147,7 +147,7 @@
         {{-- GRAFIK JUMLAH PRODUK --}}
         <div class="card border-0 shadow mb-4">
             <div class="card-header d-flex align-items-center justify-content-between">
-                <h2 class="fs-5 fw-bold mb-0">📦 Grafik Jumlah Produk</h2>
+                <h2 class="fs-5 fw-bold mb-0">📦 Grafik Jumlah produk</h2>
                 <a href="{{ route('produk.list') }}" class="btn btn-sm btn-primary">Lihat Semua</a>
             </div>
             <div class="card-body">
@@ -158,7 +158,7 @@
         {{-- GRAFIK TANGGAL MASUK VS EXPIRED --}}
         <div class="card border-0 shadow mb-4">
             <div class="card-header d-flex align-items-center justify-content-between">
-                <h2 class="fs-5 fw-bold mb-0">📅 Grafik Tgl Masuk vs Expired Produk</h2>
+                <h2 class="fs-5 fw-bold mb-0">📅 Grafik Tgl Masuk vs Expired produk</h2>
                 <a href="{{ route('produk.list') }}" class="btn btn-sm btn-outline-secondary">Detail</a>
             </div>
             <div class="card-body">
@@ -183,10 +183,10 @@
             </div>
         </div>
 
-        {{-- Ringkasan Pesanan --}}
+        {{-- Ringkasan pesanan --}}
         <div class="card border-0 shadow mb-4">
             <div class="card-header">
-                <h2 class="fs-5 fw-bold mb-0">📋 Ringkasan Pesanan</h2>
+                <h2 class="fs-5 fw-bold mb-0">📋 Ringkasan pesanan</h2>
             </div>
             <div class="card-body p-0">
                 <ul class="list-group list-group-flush">
@@ -217,20 +217,20 @@
             </div>
             <div class="card-body d-grid gap-2">
                 <a href="{{ route('pesan.list') }}" class="btn btn-sm text-start" style="color:#fff;background:#ec4899;border-color:#ec4899;">
-                    🥟 Kelola Pesanan
+                    🥟 Kelola pesanan
                 </a>
                 <a href="{{ route('mitra.list') }}" class="btn btn-outline-warning btn-sm text-start">
-                    🤝 Kelola Mitra
+                    🤝 Kelola mitra
                 </a>
                 <a href="{{ route('produk.list') }}" class="btn btn-outline-primary btn-sm text-start">
-                    📦 Kelola Produk
+                    📦 Kelola produk
                 </a>
                 <a href="{{ route('pelanggan.list') }}" class="btn btn-outline-success btn-sm text-start">
-                    👤 Kelola Pelanggan
+                    👤 Kelola pelanggan
                 </a>
-                @if(Auth::check() && Auth::user()->role == 'Administrator')
+                @if(Auth::check() && Auth::user()->role == 'administrator')
                 <a href="{{ route('admin.list') }}" class="btn btn-outline-secondary btn-sm text-start">
-                    🔒 Kelola Admin
+                    🔒 Kelola admin
                 </a>
                 @endif
             </div>
@@ -243,7 +243,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Chart Jumlah Produk
+    // Chart Jumlah produk
     const ctx1 = document.getElementById('produkChart')?.getContext('2d');
     if(ctx1) {
         new Chart(ctx1, {

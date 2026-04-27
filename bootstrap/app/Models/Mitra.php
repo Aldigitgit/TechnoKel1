@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Mitra extends Model
+class mitra extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'Mitra_Id';
-    protected $table ='Mitra';
+    protected $primaryKey = 'mitra_Id';
+    protected $table = 'mitra';
 
-    protected $fillable =[
-        'Mitra_Id',
-        'Nama_Mitra',
+    protected $fillable = [
+        'mitra_Id',
+        'Nama_mitra',
         'Alamat',
         'Email',
         'Nomor_Telepon',

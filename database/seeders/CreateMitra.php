@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Mitra;
+use App\Models\mitra;
 use Illuminate\Database\Seeder;
 
-class CreateMitra extends Seeder
+class Createmitra extends Seeder
 {
     public function run(): void
     {
@@ -37,8 +37,8 @@ class CreateMitra extends Seeder
         ];
 
         foreach ($mitraData as $data) {
-            if (!Mitra::where('email', $data['email'])->exists()) {
-                Mitra::create($data);
+            if (!mitra::where('email', $data['email'])->exists()) {
+                mitra::create($data);
             }
         }
     }

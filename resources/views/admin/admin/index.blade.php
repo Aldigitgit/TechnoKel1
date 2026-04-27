@@ -52,9 +52,9 @@
                         <div class="col-md-3">
                             <select name="role" id="role" onchange="this.form.submit()" class="form-select">
                                 <option value="">Semua Role</option>
-                                <option value="Administrator" {{ request('role') == 'Administrator' ? 'selected' : '' }}>Administrator</option>
-                                <option value="Pelanggan" {{ request('role') == 'Pelanggan' ? 'selected' : '' }}>Pelanggan</option>
-                                <option value="Mitra" {{ request('role') == 'Mitra' ? 'selected' : '' }}>Mitra</option>
+                                <option value="administrator" {{ request('role') == 'administrator' ? 'selected' : '' }}>administrator</option>
+                                <option value="pelanggan" {{ request('role') == 'pelanggan' ? 'selected' : '' }}>pelanggan</option>
+                                <option value="mitra" {{ request('role') == 'mitra' ? 'selected' : '' }}>mitra</option>
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -68,7 +68,7 @@
                 </form>
             </div>
 
-            <table class="table table-centered table-nowrap mb-0 rounded" id="table-Admin">
+            <table class="table table-centered table-nowrap mb-0 rounded" id="table-admin">
                 <thead class="thead-light">
                     <tr>
                         <th class="border-0 rounded-start">#</th>
@@ -80,18 +80,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($dataAdmin as $row)
+                    @forelse ($dataadmin as $row)
                     <tr>
-                        <td>{{ ($dataAdmin->currentPage() - 1) * $dataAdmin->perPage() + $loop->iteration }}</td>
+                        <td>{{ ($dataadmin->currentPage() - 1) * $dataadmin->perPage() + $loop->iteration }}</td>
                         <td class="fw-semibold">{{ $row->name }}</td>
                         <td>{{ $row->email }}</td>
                         <td>
-                            @if($row->role == 'Administrator')
-                                <span class="badge bg-danger">Administrator</span>
-                            @elseif($row->role == 'Mitra')
-                                <span class="badge bg-warning text-dark">Mitra</span>
+                            @if($row->role == 'administrator')
+                                <span class="badge bg-danger">administrator</span>
+                            @elseif($row->role == 'mitra')
+                                <span class="badge bg-warning text-dark">mitra</span>
                             @else
-                                <span class="badge bg-success">Pelanggan</span>
+                                <span class="badge bg-success">pelanggan</span>
                             @endif
                         </td>
                         <td>{{ $row->created_at ? $row->created_at->format('d/m/Y') : '-' }}</td>
@@ -124,7 +124,7 @@
                 </tbody>
             </table>
             <div class="mt-4">
-                {{ $dataAdmin->appends(request()->query())->links('pagination::bootstrap-5') }}
+                {{ $dataadmin->appends(request()->query())->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>

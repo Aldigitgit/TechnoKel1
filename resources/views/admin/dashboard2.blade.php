@@ -7,11 +7,11 @@
 			<div class="col-4 mb-4">
 				<div class="card border-0 shadow">
 					<div class="card-header border-bottom d-flex align-items-center justify-content-between">
-						<h2 class="fs-5 fw-bold mb-0  mx-5">Total Mitra</h2>
+						<h2 class="fs-5 fw-bold mb-0  mx-5">Total mitra</h2>
 					</div>
 					<div class="card-body">
 						<center>
-							<h3>{{ $totalMitra }}</h3>
+							<h3>{{ $totalmitra }}</h3>
 						</center>
 					</div>
 				</div>
@@ -19,11 +19,11 @@
 			<div class="col-4 mb-4">
 				<div class="card border-0 shadow">
 					<div class="card-header border-bottom d-flex align-items-center justify-content-between">
-						<h2 class="fs-5 fw-bold mb-0 mx-4">Total Pelanggan</h2>
+						<h2 class="fs-5 fw-bold mb-0 mx-4">Total pelanggan</h2>
 					</div>
 					<div class="card-body">
 						<center>
-							<h3>{{ $totalPelanggan }}</h3>
+							<h3>{{ $totalpelanggan }}</h3>
 						</center>
 					</div>
 				</div>
@@ -35,7 +35,7 @@
 					</div>
 					<div class="card-body">
 						<center>
-							<h3>{{ $totalAdmin }}</h3>
+							<h3>{{ $totaladmin }}</h3>
 						</center>
 					</div>
 				</div>
@@ -197,7 +197,7 @@
 													<!-- Avatar -->
 													<a href="#" class="avatar">
 														<img class="rounded" alt="Image placeholder"
-															src="{{asset('Assets-Admin/assets/img/team/profile-picture-2.jpg')}}">
+															src="{{asset('Assets-admin/assets/img/team/profile-picture-2.jpg')}}">
 													</a>
 												</div>
 												<div class="col-auto ms--2">
@@ -229,7 +229,7 @@
 													<!-- Avatar -->
 													<a href="#" class="avatar">
 														<img class="rounded" alt="Image placeholder"
-															src="{{asset('Assets-Admin/assets/img/team/profile-picture-3.jpg')}}">
+															src="{{asset('Assets-admin/assets/img/team/profile-picture-3.jpg')}}">
 													</a>
 												</div>
 												<div class="col-auto ms--2">
@@ -261,7 +261,7 @@
 													<!-- Avatar -->
 													<a href="#" class="avatar">
 														<img class="rounded" alt="Image placeholder"
-															src="{{asset('Assets-Admin/assets/img/team/profile-picture-4.jpg')}}">
+															src="{{asset('Assets-admin/assets/img/team/profile-picture-4.jpg')}}">
 													</a>
 												</div>
 												<div class="col-auto ms--2">

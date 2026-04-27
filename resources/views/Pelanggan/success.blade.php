@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesanan Berhasil | Duha Pao</title>
+    <title>pesanan Berhasil | Duha Pao</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -211,11 +211,11 @@
     <div class="container">
         <div class="success-card">
             <div class="success-emoji">✅</div>
-            <h2>Pesanan Berhasil!</h2>
+            <h2>pesanan Berhasil!</h2>
             <p style="color: var(--muted);">Terima kasih sudah memesan di Duha Pao.</p>
             
             <div class="order-code">
-                <strong>Kode Pesanan:</strong> <span>#{{ str_pad($pesanan->pesanan_id ?? '000', 6, '0', STR_PAD_LEFT) }}</span>
+                <strong>Kode pesanan:</strong> <span>#{{ str_pad($pesanan->pesanan_id ?? '000', 6, '0', STR_PAD_LEFT) }}</span>
             </div>
 
             <div class="whatsapp-info">
@@ -238,7 +238,7 @@
                     🏠 Kembali ke Beranda
                 </a>
                 <a href="{{ route('pesan.create') }}" class="btn-secondary-custom">
-                    🛒 Pesan Lagi
+                    🛒 pesan Lagi
                 </a>
             </div>
         </div>

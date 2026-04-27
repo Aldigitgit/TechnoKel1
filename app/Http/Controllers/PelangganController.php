@@ -2,35 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pelanggan;
+use App\Models\pelanggan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PelangganController extends Controller
+class pelangganController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Pelanggan::query();
-        
+        $query = pelanggan::query();
+
         if ($request->has('gender') && $request->gender) {
             $query->where('gender', $request->gender);
         }
-        
+
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('first_name', 'like', '%' . $search . '%')
-                  ->orWhere('last_name', 'like', '%' . $search . '%')
-                  ->orWhere('email', 'like', '%' . $search . '%');
+                    ->orWhere('last_name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%');
             });
         }
-        
-        $dataPelanggan = $query->orderBy('created_at', 'desc')
+
+        $datapelanggan = $query->orderBy('created_at', 'desc')
             ->paginate(10)
             ->onEachSide(2)
             ->withQueryString();
-            
-        return view('admin.pelanggan.index', compact('dataPelanggan'));
+
+        return view('admin.pelanggan.index', compact('datapelanggan'));
     }
 
     public function create()
@@ -74,16 +74,16 @@ class PelangganController extends Controller
             'phone' => $request->phone,
         ];
 
-        Pelanggan::create($data);
+        pelanggan::create($data);
 
         return redirect()->route('pelanggan.list')
-            ->with('success', 'Pelanggan berhasil ditambahkan!');
+            ->with('success', 'pelanggan berhasil ditambahkan!');
     }
 
     public function edit(string $param1)
     {
-        $dataPelanggan = Pelanggan::findOrFail($param1);
-        return view('admin.pelanggan.edit', compact('dataPelanggan'));
+        $datapelanggan = pelanggan::findOrFail($param1);
+        return view('admin.pelanggan.edit', compact('datapelanggan'));
     }
 
     public function update(Request $request)
@@ -104,7 +104,7 @@ class PelangganController extends Controller
                 ->withInput();
         }
 
-        $pelanggan = Pelanggan::findOrFail($request->pelanggan_id);
+        $pelanggan = pelanggan::findOrFail($request->pelanggan_id);
 
         $pelanggan->first_name = $request->first_name;
         $pelanggan->last_name = $request->last_name;
@@ -116,15 +116,15 @@ class PelangganController extends Controller
         $pelanggan->save();
 
         return redirect()->route('pelanggan.list')
-            ->with('success', 'Pelanggan berhasil diperbarui!');
+            ->with('success', 'pelanggan berhasil diperbarui!');
     }
 
     public function destroy(string $param1)
     {
-        $pelanggan = Pelanggan::findOrFail($param1);
+        $pelanggan = pelanggan::findOrFail($param1);
         $pelanggan->delete();
 
         return redirect()->route('pelanggan.list')
-            ->with('success', 'Pelanggan berhasil dihapus!');
+            ->with('success', 'pelanggan berhasil dihapus!');
     }
 }

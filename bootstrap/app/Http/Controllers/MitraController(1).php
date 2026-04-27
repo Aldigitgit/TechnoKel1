@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mitra;
+use App\Models\mitra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MitraController extends Controller
+class mitraController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-       
-            $pagedata['dataMitra'] = Mitra::all();
+
+        $pagedata['datamitra'] = mitra::all();
         return view('admin.mitra.index', $pagedata);
-       
-        
-       
+
+
+
     }
 
     /**
@@ -36,27 +36,27 @@ class MitraController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'Nama_Mitra' => ['required'],
+            'Nama_mitra' => ['required'],
             'Alamat' => ['required'],
             'Email' => ['required', 'email'],
             'Nomor_Telepon' => ['required', 'numeric'],
             'Kemitraan' => ['required', 'in:Platinum,Gold,Silver'],
             'Bergabung' => ['required', 'date'],
-            'confirmation' => 'accepted', 
+            'confirmation' => 'accepted',
             'confirmation.accepted' => 'Checkbox tidak boleh kosong.',
-            
+
         ]);
-        
-        $data['Nama_Mitra'] = $request->Nama_Mitra;
+
+        $data['Nama_mitra'] = $request->Nama_mitra;
         $data['Alamat'] = $request->Alamat;
         $data['Email'] = $request->Email;
         $data['Nomor_Telepon'] = $request->Nomor_Telepon;
         $data['Kemitraan'] = $request->Kemitraan;
         $data['Bergabung'] = $request->Bergabung;
 
-        Mitra::create($data);
+        mitra::create($data);
 
-        return redirect()->route('Mitra.list')->with('success', 'Penambahan Data Berhasil!');
+        return redirect()->route('mitra.list')->with('success', 'Penambahan Data Berhasil!');
     }
 
     /**
@@ -72,9 +72,9 @@ class MitraController extends Controller
      */
     public function edit(string $param1)
     {
-        $pagedata['dataMitra'] = Mitra::findOrFail($param1);
+        $pagedata['datamitra'] = mitra::findOrFail($param1);
 
-        return view('Admin.Mitra.edit', $pagedata);
+        return view('admin.mitra.edit', $pagedata);
     }
 
     /**
@@ -83,27 +83,27 @@ class MitraController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'Mitra_Id' => ['required'],
-            'Nama_Mitra' => ['required'],
+            'mitra_Id' => ['required'],
+            'Nama_mitra' => ['required'],
             'Alamat' => ['required'],
             'Email' => ['required', 'email'],
             'Nomor_Telepon' => ['required', 'Numeric'],
             'Kemitraan' => ['required', 'in:Platinum,Gold,Silver'],
             'Bergabung' => ['required', 'date'],
         ]);
-        $Mitra_Id=$request->Mitra_Id;
-        $Mitra = Mitra::findOrFail($Mitra_Id);
+        $mitra_Id = $request->mitra_Id;
+        $mitra = mitra::findOrFail($mitra_Id);
 
-        $Mitra->Nama_Mitra=$request->Nama_Mitra;
-        $Mitra->Alamat=$request->Alamat;
-        $Mitra->Email=$request->Email;
-        $Mitra->Nomor_Telepon=$request->Nomor_Telepon;
-        $Mitra->Kemitraan=$request->Kemitraan;
-        $Mitra->Bergabung=$request->Bergabung;
+        $mitra->Nama_mitra = $request->Nama_mitra;
+        $mitra->Alamat = $request->Alamat;
+        $mitra->Email = $request->Email;
+        $mitra->Nomor_Telepon = $request->Nomor_Telepon;
+        $mitra->Kemitraan = $request->Kemitraan;
+        $mitra->Bergabung = $request->Bergabung;
 
-        $Mitra->save();
+        $mitra->save();
 
-        return redirect()->route('Mitra.list')->with('success', 'Perubahan Data Berhasil!');
+        return redirect()->route('mitra.list')->with('success', 'Perubahan Data Berhasil!');
     }
 
     /**
@@ -111,10 +111,10 @@ class MitraController extends Controller
      */
     public function destroy(string $param1)
     {
-        $Mitra = Mitra::findOrFail($param1);
+        $mitra = mitra::findOrFail($param1);
 
-        $Mitra->delete();
+        $mitra->delete();
 
-        return redirect()->route('Mitra.list')->with('success', 'Penghapusan Data Berhasil!');
+        return redirect()->route('mitra.list')->with('success', 'Penghapusan Data Berhasil!');
     }
 }

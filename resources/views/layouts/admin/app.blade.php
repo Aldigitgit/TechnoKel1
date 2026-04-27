@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- Primary Meta Tags -->
-    <title>Mitra</title>
+    <title>mitra</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="title" content="Volt - Free Bootstrap 5 Dashboard">
     <meta name="author" content="Themesberg">
@@ -23,14 +23,14 @@
 
 <body>
 
-   @include('layouts.admin.sidebar')
+    @include('layouts.admin.sidebar')
 
     <main class="content">
 
         @include('layouts.admin.navbar')
 
 
-      @yield('content')
+        @yield('content')
 
 
         @include('layouts.admin.footer')

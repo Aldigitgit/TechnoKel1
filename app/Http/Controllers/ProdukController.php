@@ -2,34 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produk;
+use App\Models\produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class ProdukController extends Controller
+class produkController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Produk::query();
-        
+        $query = produk::query();
+
         if ($request->has('kategori') && $request->kategori) {
             $query->where('kategori', $request->kategori);
         }
-        
+
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('nama_produk', 'like', '%' . $search . '%')
-                  ->orWhere('kategori', 'like', '%' . $search . '%');
+                    ->orWhere('kategori', 'like', '%' . $search . '%');
             });
         }
-        
-        $dataProduk = $query->orderBy('created_at', 'desc')
+
+        $dataproduk = $query->orderBy('created_at', 'desc')
             ->paginate(10)
             ->onEachSide(2)
             ->withQueryString();
-            
-        return view('admin.produk.index', compact('dataProduk'));
+
+        return view('admin.produk.index', compact('dataproduk'));
     }
 
     public function create()
@@ -74,16 +74,16 @@ class ProdukController extends Controller
             'tgl_expired' => $request->tgl_expired,
         ];
 
-        Produk::create($data);
+        produk::create($data);
 
         return redirect()->route('produk.list')
-            ->with('success', 'Produk berhasil ditambahkan!');
+            ->with('success', 'produk berhasil ditambahkan!');
     }
 
     public function edit(string $param1)
     {
-        $dataProduk = Produk::findOrFail($param1);
-        return view('admin.produk.edit', compact('dataProduk'));
+        $dataproduk = produk::findOrFail($param1);
+        return view('admin.produk.edit', compact('dataproduk'));
     }
 
     public function update(Request $request)
@@ -104,7 +104,7 @@ class ProdukController extends Controller
                 ->withInput();
         }
 
-        $produk = Produk::findOrFail($request->produk_id);
+        $produk = produk::findOrFail($request->produk_id);
 
         $produk->nama_produk = $request->nama_produk;
         $produk->jumlah = $request->jumlah;
@@ -116,15 +116,15 @@ class ProdukController extends Controller
         $produk->save();
 
         return redirect()->route('produk.list')
-            ->with('success', 'Produk berhasil diperbarui!');
+            ->with('success', 'produk berhasil diperbarui!');
     }
 
     public function destroy(string $param1)
     {
-        $produk = Produk::findOrFail($param1);
+        $produk = produk::findOrFail($param1);
         $produk->delete();
 
         return redirect()->route('produk.list')
-            ->with('success', 'Produk berhasil dihapus!');
+            ->with('success', 'produk berhasil dihapus!');
     }
 }

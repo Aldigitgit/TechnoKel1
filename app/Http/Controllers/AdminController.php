@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class AdminController extends Controller
+class adminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,13 +17,13 @@ class AdminController extends Controller
     {
         $filterAbleColumns = ['role'];
         
-        $dataAdmin = User::filter($request, $filterAbleColumns)
+        $dataadmin = User::filter($request, $filterAbleColumns)
             ->orderBy('created_at', 'desc')
             ->paginate(10)
             ->onEachSide(2)
             ->withQueryString();
             
-        return view('admin.admin.index', compact('dataAdmin'));
+        return view('admin.admin.index', compact('dataadmin'));
     }
 
     /**
@@ -44,7 +44,7 @@ class AdminController extends Controller
             'name' => 'required|string|max:30',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'role' => 'required|in:Administrator,Pelanggan,Mitra',
+            'role' => 'required|in:administrator,Pelanggan,Mitra',
         ], [
             'name.required' => 'Nama harus diisi',
             'name.max' => 'Nama maksimal 30 karakter',
@@ -82,8 +82,8 @@ class AdminController extends Controller
      */
     public function show(string $id)
     {
-        $dataAdmin = User::findOrFail($id);
-        return view('admin.admin.show', compact('dataAdmin'));
+        $dataadmin = User::findOrFail($id);
+        return view('admin.admin.show', compact('dataadmin'));
     }
 
     /**
@@ -91,8 +91,8 @@ class AdminController extends Controller
      */
     public function edit(string $param1)
     {
-        $dataAdmin = User::findOrFail($param1);
-        return view('admin.admin.edit', compact('dataAdmin'));
+        $dataadmin = User::findOrFail($param1);
+        return view('admin.admin.edit', compact('dataadmin'));
     }
 
     /**
@@ -106,7 +106,7 @@ class AdminController extends Controller
             'name' => 'required|string|max:30',
             'email' => 'required|email|unique:users,email,' . $request->user_id,
             'password' => 'nullable|min:6',  // Password tidak wajib di update
-            'role' => 'required|in:Administrator,Pelanggan,Mitra',
+            'role' => 'required|in:administrator,Pelanggan,Mitra',
         ], [
             'name.required' => 'Nama harus diisi',
             'name.max' => 'Nama maksimal 30 karakter',

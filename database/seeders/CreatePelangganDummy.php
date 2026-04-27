@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class CreatePelangganDummy extends Seeder
+class CreatepelangganDummy extends Seeder
 {
     /**
      * Run the database seeds.

@@ -1,6 +1,7 @@
 <footer id="footer" data-aos="fade-up" data-aos-duration="1500">
     <h1 class="text-center">Duha Pao</h1>
-    <p class="text-center">Menyatukan rasa dan bahagia di setiap gigitan. Pesan aneka bakpao, dimsum, dan risoles lezat kami dan rasakan sensasi kelezatan homemade terbaik!</p>
+    <p class="text-center">Menyatukan rasa dan bahagia di setiap gigitan. pesan aneka bakpao, dimsum, dan risoles lezat
+        kami dan rasakan sensasi kelezatan homemade terbaik!</p>
     <div class="icons text-center">
         <i class="bx bxl-facebook"></i>
         <i class="bx bxl-instagram"></i>
@@ -12,5 +13,4 @@
 </footer>
 <!-- footer -->
 
-<a href="#" class="arrow"><i><img src="{{ asset('Assets/image/up-arrow.png') }}" alt=""
-            width="50px"></i></a>
+<a href="#" class="arrow"><i><img src="{{ asset('Assets/image/up-arrow.png') }}" alt="" width="50px"></i></a>
