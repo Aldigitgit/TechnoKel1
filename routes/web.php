@@ -54,7 +54,7 @@ Route::group(['middleware' => ['checkislogin']], function () {
         Route::delete('/destroy/{pelanggan_id}', [pelanggancontroller::class, 'destroy'])->name('destroy');
     });
 
-    Route::prefix('Pesan')->name('Pesan.')->group(function () {
+    Route::prefix('pesan')->name('pesan.')->group(function () {
         Route::get('/', [pesancontroller::class, 'index'])->name('list');
         Route::get('/create', [pesancontroller::class, 'create'])->name('create');
         Route::post('/store', [pesancontroller::class, 'store'])->name('store');
