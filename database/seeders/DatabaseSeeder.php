@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
             CreateAdministrator::class,
             CreateMitra::class,
             CreatePelanggan::class,
-            CreateProduk::class,
+            ProdukSeeder::class,
             // CreateUserDummy::class,  // Uncomment jika butuh data dummy
             // CreateMitraDummy::class,
             // CreatePelangganDummy::class,

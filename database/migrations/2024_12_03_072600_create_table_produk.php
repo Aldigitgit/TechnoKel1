@@ -12,12 +12,7 @@ return new class extends Migration
             $table->increments('produk_id');
             $table->string('nama_produk', 100)->unique();
             $table->integer('jumlah')->default(0);
-            $table->enum('kategori', [
-                'Bakpao Manis', 
-                'Bakpao Gurih', 
-                'Bakpao Spesial', 
-                'Dimsum Goreng'
-            ]);
+            $table->string('kategori', 100);
             $table->integer('harga')->default(0);
             $table->date('tgl_masuk');
             $table->date('tgl_expired');
