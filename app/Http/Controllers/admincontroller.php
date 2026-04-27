@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class adminController extends Controller
+class admincontroller extends Controller
 {
     /**
      * Display a listing of the resource.
