@@ -4,109 +4,127 @@ namespace App\Http\Controllers;
 
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProdukController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
-        $filterAbleColumns=['kategori'];
-        $searchAbleColumns=['nama_produk'];
-
-        $pagedata['dataProduk'] = Produk::filter($request, $filterAbleColumns, $searchAbleColumns)
-        ->paginate(10)
-        ->onEachSide(2)
-        ->withQueryString();
-        return view('admin.produk.index', $pagedata);
+        $query = Produk::query();
+        
+        if ($request->has('kategori') && $request->kategori) {
+            $query->where('kategori', $request->kategori);
+        }
+        
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nama_produk', 'like', '%' . $search . '%')
+                  ->orWhere('kategori', 'like', '%' . $search . '%');
+            });
+        }
+        
+        $dataProduk = $query->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->onEachSide(2)
+            ->withQueryString();
+            
+        return view('Admin.Produk.index', compact('dataProduk'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('admin.produk.create');
+        return view('Admin.Produk.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_produk' => ['required'],
-            'jumlah' => ['required', 'numeric'],
-            'kategori' => ['required', 'in:Brownies,Bolu_Gulung,Kue_UlangTahun'],
-            'tgl_masuk' => ['required', 'date'],
-            'tgl_expired' => ['required', 'date'],
+        $validator = Validator::make($request->all(), [
+            'nama_produk' => 'required|string|max:100|unique:produk,nama_produk',
+            'jumlah' => 'required|integer|min:0',
+            'kategori' => 'required|in:Bakpao Manis,Bakpao Gurih,Bakpao Spesial,Dimsum Goreng',
+            'harga' => 'required|integer|min:0',
+            'tgl_masuk' => 'required|date',
+            'tgl_expired' => 'required|date|after:tgl_masuk',
+        ], [
+            'nama_produk.required' => 'Nama produk harus diisi',
+            'nama_produk.unique' => 'Nama produk sudah ada',
+            'jumlah.required' => 'Jumlah stok harus diisi',
+            'jumlah.min' => 'Jumlah stok minimal 0',
+            'kategori.required' => 'Kategori harus dipilih',
+            'harga.required' => 'Harga harus diisi',
+            'harga.min' => 'Harga minimal 0',
+            'tgl_masuk.required' => 'Tanggal masuk harus diisi',
+            'tgl_expired.required' => 'Tanggal expired harus diisi',
+            'tgl_expired.after' => 'Tanggal expired harus setelah tanggal masuk',
         ]);
-        $data['nama_produk'] = $request->nama_produk;
-        $data['jumlah'] = $request->jumlah;
-        $data['kategori'] = $request->kategori;
-        $data['tgl_masuk'] = $request->tgl_masuk;
-        $data['tgl_expired'] = $request->tgl_expired;
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $data = [
+            'nama_produk' => $request->nama_produk,
+            'jumlah' => $request->jumlah,
+            'kategori' => $request->kategori,
+            'harga' => $request->harga,
+            'tgl_masuk' => $request->tgl_masuk,
+            'tgl_expired' => $request->tgl_expired,
+        ];
 
         Produk::create($data);
 
-        return redirect()->route('produk.list')->with('success', 'Penambahan Data Berhasil!');
+        return redirect()->route('produk.list')
+            ->with('success', 'Produk berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $param1)
     {
-        $pagedata['dataProduk'] = Produk::findOrFail($param1);
-
-        return view('Admin.produk.edit', $pagedata);
+        $dataProduk = Produk::findOrFail($param1);
+        return view('Admin.Produk.edit', compact('dataProduk'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request)
     {
-        $request->validate([
-            'produk_id' => ['required'],
-            'nama_produk' => ['required'],
-            'jumlah' => ['required'],
-            'kategori' => ['required', 'in:Brownies,Bolu_Gulung,Kue_UlangTahun'],
-            'tgl_masuk' => ['required', 'date'],
-            'tgl_expired' => ['required', 'date'],
+        $validator = Validator::make($request->all(), [
+            'produk_id' => 'required|exists:produk,produk_id',
+            'nama_produk' => 'required|string|max:100|unique:produk,nama_produk,' . $request->produk_id . ',produk_id',
+            'jumlah' => 'required|integer|min:0',
+            'kategori' => 'required|in:Bakpao Manis,Bakpao Gurih,Bakpao Spesial,Dimsum Goreng',
+            'harga' => 'required|integer|min:0',
+            'tgl_masuk' => 'required|date',
+            'tgl_expired' => 'required|date|after:tgl_masuk',
         ]);
-        $produk_id=$request->produk_id;
-        $produk = Produk::findOrFail($produk_id);
 
-        $produk->nama_produk=$request->nama_produk;
-        $produk->jumlah=$request->jumlah;
-        $produk->kategori=$request->kategori;
-        $produk->tgl_masuk=$request->tgl_masuk;
-        $produk->tgl_expired=$request->tgl_expired;
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $produk = Produk::findOrFail($request->produk_id);
+
+        $produk->nama_produk = $request->nama_produk;
+        $produk->jumlah = $request->jumlah;
+        $produk->kategori = $request->kategori;
+        $produk->harga = $request->harga;
+        $produk->tgl_masuk = $request->tgl_masuk;
+        $produk->tgl_expired = $request->tgl_expired;
 
         $produk->save();
 
-        return redirect()->route('produk.list')->with('success', 'Perubahan Data Berhasil!');
+        return redirect()->route('produk.list')
+            ->with('success', 'Produk berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $param1)
     {
         $produk = Produk::findOrFail($param1);
-
         $produk->delete();
 
-        return redirect()->route('produk.list')->with('success', 'Penghapusan Data Berhasil!');
+        return redirect()->route('produk.list')
+            ->with('success', 'Produk berhasil dihapus!');
     }
 }

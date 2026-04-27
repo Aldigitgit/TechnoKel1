@@ -60,40 +60,47 @@
             <!-- 1. Detail Pemesanan -->
             <div class="form-section shadow-sm">
               <h5>1. Detail Pemesanan</h5>
-              <div class="mb-3">
-                <label for="jenisKue" class="form-label">Jenis Kue</label>
-                <select class="form-select" id="jenisKue" name="jenis_kue">
-                  <option value="">Pilih jenis kue...</option>
-                  <option value="Brownies" {{ $dataPesan->jenis_kue == 'Brownies' ? 'selected' : '' }}>Brownies</option>
-                  <option value="Bolu Gulung" {{ $dataPesan->jenis_kue == 'Bolu Gulung' || $dataPesan->jenis_kue == 'BoluGulung' ? 'selected' : '' }}>Bolu Gulung</option>
-                  <option value="Kue Ulang Tahun" {{ $dataPesan->jenis_kue == 'Kue Ulang Tahun' || $dataPesan->jenis_kue == 'KueUlangTahun' ? 'selected' : '' }}>Kue Ulang Tahun</option>
-                </select>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="jenis_produk" class="form-label">Jenis Produk</label>
+                  <select class="form-select" id="jenis_produk" name="jenis_produk" required>
+                    <option value="">Pilih jenis produk...</option>
+                    <option value="Bakpao Manis" {{ $dataPesan->jenis_produk == 'Bakpao Manis' ? 'selected' : '' }}>🥟 Bakpao Manis</option>
+                    <option value="Bakpao Gurih" {{ $dataPesan->jenis_produk == 'Bakpao Gurih' ? 'selected' : '' }}>🍖 Bakpao Gurih</option>
+                    <option value="Risol Mayo" {{ $dataPesan->jenis_produk == 'Risol Mayo' ? 'selected' : '' }}>🌯 Risol Mayo</option>
+                    <option value="Dimsum" {{ $dataPesan->jenis_produk == 'Dimsum' ? 'selected' : '' }}>🥠 Dimsum</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="varian_produk" class="form-label">Varian Produk</label>
+                  <select class="form-select" id="varian_produk" name="varian_produk" required data-selected="{{ $dataPesan->varian_produk }}">
+                    <option value="">Pilih varian...</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="jumlah_pesanan" class="form-label">Jumlah Pesanan (pcs)</label>
+                  <input type="number" class="form-control" id="jumlah_pesanan" name="jumlah_pesanan" value="{{ $dataPesan->jumlah_pesanan }}" min="1" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="tanggal_pengambilan" class="form-label">Tanggal dan Waktu Pengambilan</label>
+                  <input type="datetime-local" class="form-control" id="tanggal_pengambilan" name="tanggal_pengambilan" value="{{ date('Y-m-d\TH:i', strtotime($dataPesan->tanggal_pengambilan)) }}" required>
+                </div>
               </div>
               <div class="mb-3">
-                <label for="ukuranKue" class="form-label">Ukuran atau Jumlah</label>
-                <input type="text" class="form-control" id="ukuranKue" name="ukuran_kue" value="{{ $dataPesan->ukuran_kue }}">
-              </div>
-              <div class="mb-3">
-                <label for="rasaKue" class="form-label">Rasa</label>
-                <input type="text" class="form-control" id="rasaKue" name="rasa_kue" value="{{ $dataPesan->rasa_kue }}">
-              </div>
-              <div class="mb-3">
-                <label for="pesanKue" class="form-label">Tulisan atau Pesan pada Kue</label>
-                <input type="text" class="form-control" id="pesanKue" name="pesan_kue" value="{{ $dataPesan->pesan_kue }}">
-              </div>
-              <div class="mb-3">
-                <label for="tanggalPengambilan" class="form-label">Tanggal dan Waktu Pengambilan/Pengiriman</label>
-                <input type="datetime-local" class="form-control" id="tanggalPengambilan" name="tanggal_pengambilan" value="{{ date('Y-m-d\TH:i', strtotime($dataPesan->tanggal_pengambilan)) }}">
-              </div>
-              <div class="mb-3">
-                <label for="temaKue" class="form-label">Desain atau Tema (Opsional)</label>
-                <input type="text" class="form-control" id="temaKue" name="tema_kue" value="{{ $dataPesan->tema_kue }}">
+                <label for="catatan_pesanan" class="form-label">Catatan Pesanan</label>
+                <input type="text" class="form-control" id="catatan_pesanan" name="catatan_pesanan" value="{{ $dataPesan->catatan_pesanan }}">
               </div>
             </div>
 
             <!-- 2. Detail Pengiriman -->
             <div class="form-section shadow-sm">
               <h5>2. Detail Pengiriman (jika dikirim)</h5>
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="ambil_di_toko" name="ambil_di_toko" value="1" {{ $dataPesan->ambil_di_toko ? 'checked' : '' }}>
+                <label class="form-check-label" for="ambil_di_toko">Ambil sendiri di toko</label>
+              </div>
               <div class="mb-3">
                 <label for="alamatPengiriman" class="form-label">Alamat Pengiriman</label>
                 <input type="text" class="form-control" id="alamatPengiriman" name="alamat_pengiriman" value="{{ $dataPesan->alamat_pengiriman }}">
@@ -172,5 +179,40 @@
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const varianMap = {
+      'Bakpao Manis': ['Bakpao Kacang Merah', 'Bakpao Coklat Lumer', 'Bakpao Keju', 'Bakpao Durian', 'Bakpao Kelapa Gula Merah', 'Bakpao Coklat Keju'],
+      'Bakpao Gurih': ['Bakpao Ayam Suwir'],
+      'Risol Mayo': ['Sosis Mayo', 'Beef Mayo', 'Telor Mayo', 'Ayam Suwir Mayo', 'Risol Combo Mayo'],
+      'Dimsum': ['Dimsum Ayam', 'Dimsum Udang', 'Dimsum Keju', 'Dimsum Mix']
+    };
+
+    const jenisSelect = document.getElementById('jenis_produk');
+    const varianSelect = document.getElementById('varian_produk');
+    const selectedVarian = varianSelect.getAttribute('data-selected');
+
+    function updateVarianOptions() {
+      const selectedJenis = jenisSelect.value;
+      varianSelect.innerHTML = '<option value="">Pilih varian...</option>';
+      
+      if (selectedJenis && varianMap[selectedJenis]) {
+        varianMap[selectedJenis].forEach(varian => {
+          const option = document.createElement('option');
+          option.value = varian;
+          option.textContent = varian;
+          if (varian === selectedVarian) {
+            option.selected = true;
+          }
+          varianSelect.appendChild(option);
+        });
+        varianSelect.disabled = false;
+      } else {
+        varianSelect.disabled = true;
+      }
+    }
+
+    jenisSelect.addEventListener('change', updateVarianOptions);
+    updateVarianOptions();
+  </script>
 </body>
 </html>

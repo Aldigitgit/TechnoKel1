@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -14,16 +15,16 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-     
-        $filterAbleColumns=['role'];
-
-        $pagedata['dataAdmin'] = User::filter($request, $filterAbleColumns)
-        ->paginate(10)
-        ->onEachSide(2)
-        ->withQueryString();
-        return view('Admin.Admin.index', $pagedata);
+        $filterAbleColumns = ['role'];
+        
+        $dataAdmin = User::filter($request, $filterAbleColumns)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->onEachSide(2)
+            ->withQueryString();
+            
+        return view('Admin.Admin.index', compact('dataAdmin'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -38,30 +39,42 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        // Kode untuk Validasi Request
-		//
-        $request->validate([
-		    'name'  => 'required|max:30',
-		    'email' => ['required','email'],
-        'password' => ['required',],
-        'role' => ['required', 'in:Administrator,Pelanggan,Mitra'],
-		],
-        ['name.required' => 'Silahkan diisikan namanya'
+        // Validasi Request
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:30',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'role' => 'required|in:Administrator,Pelanggan,Mitra',
+        ], [
+            'name.required' => 'Nama harus diisi',
+            'name.max' => 'Nama maksimal 30 karakter',
+            'email.required' => 'Email harus diisi',
+            'email.email' => 'Format email tidak valid',
+            'email.unique' => 'Email sudah terdaftar',
+            'password.required' => 'Password harus diisi',
+            'password.min' => 'Password minimal 6 karakter',
+            'role.required' => 'Role harus dipilih',
+            'role.in' => 'Role tidak valid',
         ]);
 
-		// Kode data user name & Email
-		// ...
-        $data['name'] = $request->name;
-        $data['email'] = $request->email;
-		$data['password'] = Hash::make($request->password);
-        $data['role'] = $request->role;
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
+        // Simpan data user
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+        ];
 
-	    User::create($data);
+        User::create($data);
 
-		// Kode untuk Redirect & Flash Data Success
-		// ...
-        return redirect()->route('Admin.list')->with('success', 'Penambahan Data Berhasil!');
+        return redirect()->route('Admin.list')
+            ->with('success', 'User berhasil ditambahkan!');
     }
 
     /**
@@ -69,7 +82,8 @@ class AdminController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $dataAdmin = User::findOrFail($id);
+        return view('Admin.Admin.show', compact('dataAdmin'));
     }
 
     /**
@@ -77,9 +91,8 @@ class AdminController extends Controller
      */
     public function edit(string $param1)
     {
-        $pagedata['dataAdmin'] = User::findOrFail($param1);
-
-        return view('Admin.Admin.edit', $pagedata);
+        $dataAdmin = User::findOrFail($param1);
+        return view('Admin.Admin.edit', compact('dataAdmin'));
     }
 
     /**
@@ -87,28 +100,52 @@ class AdminController extends Controller
      */
     public function update(Request $request)
     {
-        $request->validate([
-		    'name'  => 'required|max:30',
-		    'email' => ['required','email'],
-        'password' => [
-		        'required',           // Wajib diisi
-		        'string',             // Harus berupa string
-		    ], 'role' => ['required', 'in:Administrator,Pelanggan,Mitra'],
-		],[
-            'name.required' => 'Silahkan diisikan namanya'
+        // Validasi Request
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|exists:users,id',
+            'name' => 'required|string|max:30',
+            'email' => 'required|email|unique:users,email,' . $request->user_id,
+            'password' => 'nullable|min:6',  // Password tidak wajib di update
+            'role' => 'required|in:Administrator,Pelanggan,Mitra',
+        ], [
+            'name.required' => 'Nama harus diisi',
+            'name.max' => 'Nama maksimal 30 karakter',
+            'email.required' => 'Email harus diisi',
+            'email.email' => 'Format email tidak valid',
+            'email.unique' => 'Email sudah digunakan user lain',
+            'password.min' => 'Password minimal 6 karakter',
+            'role.required' => 'Role harus dipilih',
+            'role.in' => 'Role tidak valid',
         ]);
 
-        $userr_id=$request->userr_id;
-        $userr = User::findOrFail($userr_id);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
-        $userr->name=$request->name;
-        $userr->email=$request->email;
-        $userr->role=$request->role;
-        $userr->password=$request->password;
+        $user = User::findOrFail($request->user_id);
+        
+        // Cek jika mencoba mengubah user yang sedang login
+        if (Auth::id() == $user->id && $request->role != $user->role) {
+            return redirect()->back()
+                ->with('error', 'Anda tidak dapat mengubah role sendiri!')
+                ->withInput();
+        }
 
-        $userr->save();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role = $request->role;
+        
+        // Update password hanya jika diisi
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+        
+        $user->save();
 
-        return redirect()->route('Admin.list')->with('success', 'Perubahan Data Berhasil!');
+        return redirect()->route('Admin.list')
+            ->with('success', 'User berhasil diperbarui!');
     }
 
     /**
@@ -116,11 +153,41 @@ class AdminController extends Controller
      */
     public function destroy(string $param1)
     {
-        $userr = User::findOrFail($param1);
+        $user = User::findOrFail($param1);
+        
+        // Cek jangan hapus user sendiri
+        if (Auth::id() == $user->id) {
+            return redirect()->route('Admin.list')
+                ->with('error', 'Anda tidak dapat menghapus akun sendiri!');
+        }
+        
+        $user->delete();
 
-        $userr->delete();
-
-        return redirect()->route('Admin.list')->with('success', 'Penghapusan Data Berhasil!');
+        return redirect()->route('Admin.list')
+            ->with('success', 'User berhasil dihapus!');
     }
 
+    /**
+     * Update status user (aktivasi/non-aktivasi)
+     */
+    public function updateStatus(Request $request, string $id)
+    {
+        $request->validate([
+            'status' => 'required|in:active,inactive',
+        ]);
+
+        $user = User::findOrFail($id);
+        
+        // Cek jangan non-aktifkan user sendiri
+        if (Auth::id() == $user->id && $request->status == 'inactive') {
+            return redirect()->back()
+                ->with('error', 'Anda tidak dapat menonaktifkan akun sendiri!');
+        }
+        
+        $user->status = $request->status;
+        $user->save();
+
+        return redirect()->back()
+            ->with('success', 'Status user berhasil diperbarui!');
+    }
 }

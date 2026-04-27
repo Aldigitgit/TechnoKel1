@@ -11,9 +11,9 @@ class Pelanggan extends Model
     use HasFactory;
 
     protected $primaryKey = 'pelanggan_id';
-    protected $table ='pelanggan';
+    protected $table = 'pelanggan';
 
-    protected $fillable =[
+    protected $fillable = [
         'first_name',
         'last_name',
         'birthday',
@@ -22,22 +22,28 @@ class Pelanggan extends Model
         'phone'
     ];
 
+    protected $casts = [
+        'birthday' => 'date',
+    ];
+
+    // Accessor untuk nama lengkap
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
     public function scopeFilter(Builder $query, $request, array $filterableColumns, array $searchableColumns): Builder
     {
-        // Filter kolom berdasarkan input
         foreach ($filterableColumns as $column) {
             if ($request->filled($column)) {
                 if ($column === 'birthday') {
-                    // Filter tahun dari kolom birthday
                     $query->whereYear('birthday', $request->input($column));
                 } else {
-                    // Filter kolom lain
                     $query->where($column, $request->input($column));
                 }
             }
         }
-    
-        // Pencarian global
+
         if ($request->filled('search') && !empty($searchableColumns)) {
             $query->where(function ($q) use ($request, $searchableColumns) {
                 foreach ($searchableColumns as $column) {
@@ -45,9 +51,7 @@ class Pelanggan extends Model
                 }
             });
         }
-    
+
         return $query;
     }
-    
-
 }

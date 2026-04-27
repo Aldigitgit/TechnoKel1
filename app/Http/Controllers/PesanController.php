@@ -1,193 +1,326 @@
 <?php
 
-namespace App\Http\Controllers;
+    namespace App\Http\Controllers;
 
-use App\Models\Pesan;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
-class PesanController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    use App\Models\Pesan;
+    use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Storage;
+    use Illuminate\Support\Facades\Validator;
+    use Illuminate\Support\Str;
+
+    class PesanController extends Controller
     {
-        $dataPesan = Pesan::latest()->paginate(10);
-        return view('Pelanggan.index', compact('dataPesan'));
-    }
+        /**
+         * Display a listing of the resource.
+         */
+        public function index()
+        {
+            $dataPesan = Pesan::latest()->paginate(10);
+            return view('Pelanggan.index', compact('dataPesan'));
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view(view: 'Pelanggan.create');
-    }
+        /**
+         * Show the form for creating a new resource.
+         */
+        public function create()
+        {
+            return view('Pelanggan.create');
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            // Detail Pemesanan
-            'jenis_kue' => ['required'],
-            'ukuran_kue' => ['required'],
-            'rasa_kue' => ['required'],
-            'pesan_kue' => ['nullable', 'string'],
-            'tanggal_pengambilan' => ['required', 'date'],
-            'tema_kue' => ['nullable', 'string'],
-    
-            // // Detail Pengiriman
-            'alamat_pengiriman' => ['nullable', 'string'],
-            'nama_penerima' => ['nullable', 'string'],
-            'kontak_penerima' => ['nullable', 'numeric'],
-    
-            // // Detail Pemesan
-            'nama_pemesan' => ['required', 'string'],
-            'kontak_pemesan' => ['required', 'numeric'],
-            'email_pemesan' => ['required', 'email'],
-    
-            // // Detail Pembayaran
-            'nominal_dp' => ['nullable', 'numeric'],
-            'metode_pembayaran' => ['nullable', 'string'],
-            'bukti_pembayaran' => ['nullable', 'image', 'mimes:jpeg,png,jpg'], // jika ada file gambar
-    
-            // Catatan Tambahan
-            'instruksi_khusus' => ['nullable', 'string'],
-        ]);
-    
-        $data['jenis_kue'] = $request->jenis_kue;
-        $data['ukuran_kue'] = $request->ukuran_kue;
-        $data['rasa_kue'] = $request->rasa_kue;
-        $data['pesan_kue'] = $request->pesan_kue;
-        $data['tanggal_pengambilan'] = $request->tanggal_pengambilan;
-        $data['tema_kue'] = $request->tema_kue;
-    
-        $data['alamat_pengiriman'] = $request->alamat_pengiriman;
-        $data['nama_penerima'] = $request->nama_penerima;
-        $data['kontak_penerima'] = $request->kontak_penerima;
-    
-        $data['nama_pemesan'] = $request->nama_pemesan;
-        $data['kontak_pemesan'] = $request->kontak_pemesan;
-        $data['email_pemesan'] = $request->email_pemesan;
-    
-        $data['nominal_dp'] = $request->nominal_dp;
-        $data['metode_pembayaran'] = $request->metode_pembayaran;
-    
-        // Handling upload file jika ada
+        /**
+         * Store a newly created resource in storage.
+         */
+        public function store(Request $request)
+        {
+            // Validasi untuk form BAKPAO & DIMSUM
+            $validator = Validator::make($request->all(), [
+                // ========== Detail Pemesanan ==========
+                'jenis_produk' => 'required|string|max:100',
+                'varian_produk' => 'required|string|max:100',
+                'jumlah_pesanan' => 'required|integer|min:1',
+                'tanggal_pengambilan' => 'required|date|after:now',
+                'catatan_pesanan' => 'nullable|string',
+                
+                // ========== Detail Pengiriman ==========
+                'ambil_di_toko' => 'nullable|boolean',
+                'alamat_pengiriman' => 'nullable|string',
+                'nama_penerima' => 'nullable|string|max:100',
+                'kontak_penerima' => 'nullable|string|max:20',
+                
+                // ========== Detail Pemesan ==========
+                'nama_pemesan' => 'required|string|max:100',
+                'kontak_pemesan' => 'required|string|max:20',
+                'email_pemesan' => 'required|email|max:100',
+                
+                // ========== Detail Pembayaran ==========
+                'nominal_dp' => 'nullable|numeric',
+                'metode_pembayaran' => 'nullable|string',
+                'bukti_pembayaran' => 'nullable|image|mimes:jpeg,png,jpg|max:10240', 
+                
+                // ========== Catatan Tambahan ==========
+                'instruksi_khusus' => 'nullable|string',
+            ]);
 
-        $data = $request->except('bukti_pembayaran');
-
-        if ($request->hasFile('bukti_pembayaran')) {
-        $file = $request->file('bukti_pembayaran');
-
-        // Buat nama file berdasarkan timestamp dan nama pemesan
-        $filename = time() . '_' . Str::slug($request->nama_pemesan, '_') . '.' . $file->getClientOriginalExtension();
-
-        // Simpan file ke direktori public/storage/uploads
-        $file->storeAs('public/uploads', $filename);
-
-
-        // Simpan nama file ke dalam array data
-        $data['bukti_pembayaran'] = $filename;
-    }
-
-    // Simpan data ke database
-    Pesan::create($data);
-        return view('home');
-        // return redirect()->route('home')->with('success', 'Penambahan Data Berhasil!');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $dataPesan = Pesan::findOrFail($id);
-        return view('Pelanggan.edit', compact('dataPesan'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request)
-    {
-        $request->validate([
-            'pesan_id' => ['required'],
-            'jenis_kue' => ['required'],
-            'ukuran_kue' => ['required'],
-            'rasa_kue' => ['required'],
-            'pesan_kue' => ['nullable', 'string'],
-            'tanggal_pengambilan' => ['required', 'date'],
-            'tema_kue' => ['nullable', 'string'],
-            'alamat_pengiriman' => ['nullable', 'string'],
-            'nama_penerima' => ['nullable', 'string'],
-            'kontak_penerima' => ['nullable', 'numeric'],
-            'nama_pemesan' => ['required', 'string'],
-            'kontak_pemesan' => ['required', 'numeric'],
-            'email_pemesan' => ['required', 'email'],
-            'nominal_dp' => ['nullable', 'numeric'],
-            'metode_pembayaran' => ['nullable', 'string'],
-            'bukti_pembayaran' => ['nullable', 'image', 'mimes:jpeg,png,jpg'],
-            'instruksi_khusus' => ['nullable', 'string'],
-        ]);
-
-        $pesan = Pesan::findOrFail($request->pesan_id);
-
-        $pesan->jenis_kue = $request->jenis_kue;
-        $pesan->ukuran_kue = $request->ukuran_kue;
-        $pesan->rasa_kue = $request->rasa_kue;
-        $pesan->pesan_kue = $request->pesan_kue;
-        $pesan->tanggal_pengambilan = $request->tanggal_pengambilan;
-        $pesan->tema_kue = $request->tema_kue;
-        $pesan->alamat_pengiriman = $request->alamat_pengiriman;
-        $pesan->nama_penerima = $request->nama_penerima;
-        $pesan->kontak_penerima = $request->kontak_penerima;
-        $pesan->nama_pemesan = $request->nama_pemesan;
-        $pesan->kontak_pemesan = $request->kontak_pemesan;
-        $pesan->email_pemesan = $request->email_pemesan;
-        $pesan->nominal_dp = $request->nominal_dp;
-        $pesan->metode_pembayaran = $request->metode_pembayaran;
-        $pesan->instruksi_khusus = $request->instruksi_khusus;
-
-        if ($request->hasFile('bukti_pembayaran')) {
-            $file = $request->file('bukti_pembayaran');
-            $filename = time() . '_' . Str::slug($request->nama_pemesan, '_') . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/uploads', $filename);
-            
-            if ($pesan->bukti_pembayaran) {
-                Storage::delete('public/uploads/' . $pesan->bukti_pembayaran);
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
             }
-            $pesan->bukti_pembayaran = $filename;
+
+            // Daftar harga produk
+            $hargaProduk = [
+                // Bakpao Manis
+                'Bakpao Kacang Merah' => 5000,
+                'Bakpao Coklat Lumer' => 5000,
+                'Bakpao Keju' => 6000,
+                'Bakpao Durian' => 5000,
+                'Bakpao Kelapa Gula Merah' => 5000,
+                'Bakpao Coklat Keju' => 6000,
+                // Bakpao Gurih
+                'Bakpao Ayam Suwir' => 6000,
+                // Risol Mayo
+                'Sosis Mayo' => 2000,
+                'Beef Mayo' => 2000,
+                'Telor Mayo' => 2000,
+                'Ayam Suwir Mayo' => 2000,
+                'Risol Combo Mayo' => 3000,
+                // Dimsum
+                'Dimsum Ayam' => 6000,
+                'Dimsum Udang' => 6000,
+                'Dimsum Keju' => 6000,
+                'Dimsum Mix' => 6000,
+            ];
+
+            // Hitung total harga
+            $hargaSatuan = $hargaProduk[$request->varian_produk] ?? 0;
+            $totalHarga = $hargaSatuan * $request->jumlah_pesanan;
+
+            // Siapkan data untuk disimpan
+            $data = [
+                // Detail Pemesanan
+                'jenis_produk' => $request->jenis_produk,
+                'varian_produk' => $request->varian_produk,
+                'jumlah_pesanan' => $request->jumlah_pesanan,
+                'tanggal_pengambilan' => $request->tanggal_pengambilan,
+                'catatan_pesanan' => $request->catatan_pesanan,
+                
+                // Detail Pengiriman
+                'ambil_di_toko' => $request->has('ambil_di_toko'),
+                'alamat_pengiriman' => $request->alamat_pengiriman,
+                'nama_penerima' => $request->nama_penerima,
+                'kontak_penerima' => $request->kontak_penerima,
+                
+                // Detail Pemesan
+                'nama_pemesan' => $request->nama_pemesan,
+                'kontak_pemesan' => $request->kontak_pemesan,
+                'email_pemesan' => $request->email_pemesan,
+                
+                // Detail Pembayaran
+                'dp_dibayar' => $request->nominal_dp,
+                'metode_pembayaran' => $request->metode_pembayaran,
+                'total_harga' => $totalHarga,
+                
+                // Catatan Tambahan
+                'instruksi_khusus' => $request->instruksi_khusus,
+                
+                // Status awal
+                'status' => 'pending',
+            ];
+
+            // Handling upload file bukti pembayaran
+// Ganti bagian upload file
+if ($request->hasFile('bukti_pembayaran')) {
+    $file = $request->file('bukti_pembayaran');
+    $filename = time() . '_' . Str::slug($request->nama_pemesan, '_') . '.' . $file->getClientOriginalExtension();
+    // Pindahkan ke disk public folder uploads
+    $file->storeAs('uploads', $filename, 'public');
+    $data['bukti_pembayaran'] = $filename;
+}
+
+            // Simpan data ke database
+            $pesanan = Pesan::create($data);
+
+            // Redirect ke halaman sukses
+            return redirect()->route('Pesan.success', $pesanan->pesanan_id)
+                ->with('success', 'Pesanan berhasil dibuat! Kami akan menghubungi Anda segera.');
         }
 
-        $pesan->save();
+        /**
+         * Display success page.
+         */
+        public function success(string $id)
+        {
+            $pesanan = Pesan::findOrFail($id);
+            return view('Pelanggan.success', compact('pesanan'));
+        }
 
-        return redirect()->route('Pesan.list')->with('success', 'Perubahan Data Berhasil!');
+        /**
+         * Display the specified resource.
+         */
+        public function show(string $id)
+        {
+            $pesanan = Pesan::findOrFail($id);
+            return view('Pelanggan.show', compact('pesanan'));
+        }
+
+        /**
+         * Show the form for editing the specified resource.
+         */
+        public function edit(string $id)
+        {
+            $dataPesan = Pesan::findOrFail($id);
+            return view('Pelanggan.edit', compact('dataPesan'));
+        }
+
+        /**
+         * Update the specified resource in storage.
+         */
+        public function update(Request $request)
+        {
+            $validator = Validator::make($request->all(), [
+                'pesanan_id' => 'required|exists:pesanans,pesanan_id',
+                'jenis_produk' => 'required|string|max:100',
+                'varian_produk' => 'required|string|max:100',
+                'jumlah_pesanan' => 'required|integer|min:1',
+                'tanggal_pengambilan' => 'required|date',
+                'catatan_pesanan' => 'nullable|string',
+                'ambil_di_toko' => 'nullable|boolean',
+                'alamat_pengiriman' => 'nullable|string',
+                'nama_penerima' => 'nullable|string|max:100',
+                'kontak_penerima' => 'nullable|string|max:20',
+                'nama_pemesan' => 'required|string|max:100',
+                'kontak_pemesan' => 'required|string|max:20',
+                'email_pemesan' => 'required|email|max:100',
+                'dp_dibayar' => 'nullable|numeric',
+                'metode_pembayaran' => 'nullable|string',
+                'status' => 'nullable|in:pending,confirmed,processing,ready,completed,cancelled',
+                'bukti_pembayaran' => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
+                'instruksi_khusus' => 'nullable|string',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
+            $pesanan = Pesan::findOrFail($request->pesanan_id);
+
+            // Update data
+            $pesanan->jenis_produk = $request->jenis_produk;
+            $pesanan->varian_produk = $request->varian_produk;
+            $pesanan->jumlah_pesanan = $request->jumlah_pesanan;
+            $pesanan->tanggal_pengambilan = $request->tanggal_pengambilan;
+            $pesanan->catatan_pesanan = $request->catatan_pesanan;
+            $pesanan->ambil_di_toko = $request->has('ambil_di_toko');
+            $pesanan->alamat_pengiriman = $request->alamat_pengiriman;
+            $pesanan->nama_penerima = $request->nama_penerima;
+            $pesanan->kontak_penerima = $request->kontak_penerima;
+            $pesanan->nama_pemesan = $request->nama_pemesan;
+            $pesanan->kontak_pemesan = $request->kontak_pemesan;
+            $pesanan->email_pemesan = $request->email_pemesan;
+            $pesanan->dp_dibayar = $request->dp_dibayar;
+            $pesanan->metode_pembayaran = $request->metode_pembayaran;
+            $pesanan->instruksi_khusus = $request->instruksi_khusus;
+            
+            if ($request->has('status')) {
+                $pesanan->status = $request->status;
+            }
+
+            // Update total harga jika varian atau jumlah berubah
+            $hargaProduk = [
+                // Bakpao Manis
+                'Bakpao Kacang Merah' => 5000,
+                'Bakpao Coklat Lumer' => 5000,
+                'Bakpao Keju' => 6000,
+                'Bakpao Durian' => 5000,
+                'Bakpao Kelapa Gula Merah' => 5000,
+                'Bakpao Coklat Keju' => 6000,
+                // Bakpao Gurih
+                'Bakpao Ayam Suwir' => 6000,
+                // Risol Mayo
+                'Sosis Mayo' => 2000,
+                'Beef Mayo' => 2000,
+                'Telor Mayo' => 2000,
+                'Ayam Suwir Mayo' => 2000,
+                'Risol Combo Mayo' => 3000,
+                // Dimsum
+                'Dimsum Ayam' => 6000,
+                'Dimsum Udang' => 6000,
+                'Dimsum Keju' => 6000,
+                'Dimsum Mix' => 6000,
+            ];
+            $hargaSatuan = $hargaProduk[$request->varian_produk] ?? 0;
+            $pesanan->total_harga = $hargaSatuan * $request->jumlah_pesanan;
+
+            // Handling upload file bukti pembayaran
+// Ganti bagian upload file
+if ($request->hasFile('bukti_pembayaran')) {
+    $file = $request->file('bukti_pembayaran');
+    $filename = time() . '_' . Str::slug($request->nama_pemesan, '_') . '.' . $file->getClientOriginalExtension();
+    $file->storeAs('uploads', $filename, 'public');
+    
+    // Hapus file lama
+    if ($pesanan->bukti_pembayaran) {
+        if (Storage::disk('public')->exists('uploads/' . $pesanan->bukti_pembayaran)) {
+            Storage::disk('public')->delete('uploads/' . $pesanan->bukti_pembayaran);
+        }
     }
+    $pesanan->bukti_pembayaran = $filename;
+}
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $pesan = Pesan::findOrFail($id);
-        if ($pesan->bukti_pembayaran) {
-            Storage::delete('public/uploads/' . $pesan->bukti_pembayaran);
+            $pesanan->save();
+
+            return redirect()->route('Pesan.list')->with('success', 'Perubahan Data Berhasil!');
         }
-        $pesan->delete();
 
-        return redirect()->route('Pesan.list')->with('success', 'Penghapusan Data Berhasil!');
+        /**
+         * Remove the specified resource from storage.
+         */
+        public function destroy(string $id)
+        {
+            $pesanan = Pesan::findOrFail($id);
+            
+            // Hapus file bukti pembayaran jika ada
+// Hapus file bukti pembayaran jika ada
+if ($pesanan->bukti_pembayaran) {
+    if (Storage::disk('public')->exists('uploads/' . $pesanan->bukti_pembayaran)) {
+        Storage::disk('public')->delete('uploads/' . $pesanan->bukti_pembayaran);
     }
 }
+            
+            $pesanan->delete();
+
+            return redirect()->route('Pesan.list')->with('success', 'Penghapusan Data Berhasil!');
+        }
+
+        /**
+         * Update status pesanan (untuk admin)
+         */
+        public function updateStatus(Request $request, string $id)
+        {
+            $request->validate([
+                'status' => 'required|in:pending,confirmed,processing,ready,completed,cancelled',
+            ]);
+
+            $pesanan = Pesan::findOrFail($id);
+            $pesanan->status = $request->status;
+            
+            // Set waktu konfirmasi jika status menjadi confirmed
+            if ($request->status == 'confirmed' && !$pesanan->confirmed_at) {
+                $pesanan->confirmed_at = now();
+            }
+            
+            // Set waktu selesai jika status menjadi completed
+            if ($request->status == 'completed' && !$pesanan->completed_at) {
+                $pesanan->completed_at = now();
+            }
+            
+            $pesanan->save();
+
+            return redirect()->back()->with('success', 'Status pesanan berhasil diperbarui!');
+        }
+
+
+    }

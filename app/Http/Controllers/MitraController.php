@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mitra;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class MitraController extends Controller
 {
@@ -13,20 +13,34 @@ class MitraController extends Controller
      */
     public function index(Request $request)
     {
-        $filterAbleColumns=['Kemitraan'];
-        $searchAbleColumns=['Nama_Mitra'];
-
-        $pagedata['dataMitra'] = Mitra::filter($request, $filterAbleColumns, $searchAbleColumns)
-        ->paginate(10)
-        ->onEachSide(2)
-        ->withQueryString();
-        return view('admin.mitra.index', $pagedata);
-       
-        //     $pagedata['dataMitra'] = Mitra::all();
-        // return view('admin.mitra.index', $pagedata);
-       
+        $query = Mitra::query();
         
-       
+        // Filter berdasarkan level kemitraan
+        if ($request->has('Kemitraan') && $request->Kemitraan) {
+            $query->where('kemitraan', $request->Kemitraan);
+        }
+        
+        // Filter berdasarkan tahun bergabung
+        if ($request->has('tahun') && $request->tahun) {
+            $query->whereYear('bergabung', $request->tahun);
+        }
+        
+        // Search berdasarkan nama atau email
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nama_mitra', 'like', '%' . $search . '%')
+                  ->orWhere('email', 'like', '%' . $search . '%')
+                  ->orWhere('nomor_telepon', 'like', '%' . $search . '%');
+            });
+        }
+        
+        $dataMitra = $query->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->onEachSide(2)
+            ->withQueryString();
+            
+        return view('Admin.Mitra.index', compact('dataMitra'));
     }
 
     /**
@@ -34,7 +48,7 @@ class MitraController extends Controller
      */
     public function create()
     {
-        return view('admin.mitra.create');
+        return view('Admin.Mitra.create');
     }
 
     /**
@@ -42,47 +56,63 @@ class MitraController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        $request->validate([
-            'Nama_Mitra' => ['required'],
-            'Alamat' => ['required'],
-            'Email' => ['required', 'email'],
-            'Nomor_Telepon' => ['required', 'numeric'],
-            'Kemitraan' => ['required', 'in:Platinum,Gold,Silver'],
-            'Bergabung' => ['required', 'date'],
-            'confirmation' => 'accepted', 
-            'confirmation.accepted' => 'Checkbox tidak boleh kosong.',
-            
+        $validator = Validator::make($request->all(), [
+            'Nama_Mitra' => 'required|string|max:200',
+            'Alamat' => 'required|string',
+            'Email' => 'required|email|unique:mitra,Email',
+            'Nomor_Telepon' => 'required|string|max:20',
+            'Kemitraan' => 'required|in:Platinum,Gold,Silver',
+            'Bergabung' => 'required|date',
+            'confirmation' => 'accepted',
+        ], [
+            'Nama_Mitra.required' => 'Nama mitra harus diisi',
+            'Alamat.required' => 'Alamat harus diisi',
+            'Email.required' => 'Email harus diisi',
+            'Email.email' => 'Format email tidak valid',
+            'Email.unique' => 'Email sudah terdaftar',
+            'Nomor_Telepon.required' => 'Nomor telepon harus diisi',
+            'Kemitraan.required' => 'Level kemitraan harus dipilih',
+            'Bergabung.required' => 'Tanggal bergabung harus diisi',
+            'confirmation.accepted' => 'Harap centang konfirmasi data',
         ]);
-        
-        $data['Nama_Mitra'] = $request->Nama_Mitra;
-        $data['Alamat'] = $request->Alamat;
-        $data['Email'] = $request->Email;
-        $data['Nomor_Telepon'] = $request->Nomor_Telepon;
-        $data['Kemitraan'] = $request->Kemitraan;
-        $data['Bergabung'] = $request->Bergabung;
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $data = [
+            'nama_mitra' => $request->Nama_Mitra,
+            'alamat' => $request->Alamat,
+            'email' => $request->Email,
+            'nomor_telepon' => $request->Nomor_Telepon,
+            'kemitraan' => $request->Kemitraan,
+            'bergabung' => $request->Bergabung,
+        ];
 
         Mitra::create($data);
 
-        return redirect()->route('Mitra.list')->with('success', 'Penambahan Data Berhasil!');
+        return redirect()->route('Mitra.list')
+            ->with('success', 'Mitra berhasil ditambahkan!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($Mitra_Id)
     {
-        //
+        $dataMitra = Mitra::findOrFail($Mitra_Id);
+        return view('Admin.Mitra.show', compact('dataMitra'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $param1)
+    public function edit($Mitra_Id)
     {
-        $pagedata['dataMitra'] = Mitra::findOrFail($param1);
-
-        return view('Admin.Mitra.edit', $pagedata);
+        $dataMitra = Mitra::findOrFail($Mitra_Id);
+        return view('Admin.Mitra.edit', compact('dataMitra'));
     }
 
     /**
@@ -90,39 +120,55 @@ class MitraController extends Controller
      */
     public function update(Request $request)
     {
-        $request->validate([
-            'Mitra_Id' => ['required'],
-            'Nama_Mitra' => ['required'],
-            'Alamat' => ['required'],
-            'Email' => ['required', 'email'],
-            'Nomor_Telepon' => ['required', 'Numeric'],
-            'Kemitraan' => ['required', 'in:Platinum,Gold,Silver'],
-            'Bergabung' => ['required', 'date'],
+        $validator = Validator::make($request->all(), [
+            'Mitra_Id' => 'required|exists:mitra,Mitra_Id',
+            'Nama_Mitra' => 'required|string|max:200',
+            'Alamat' => 'required|string',
+            'Email' => 'required|email|unique:mitra,Email,' . $request->Mitra_Id . ',Mitra_Id',
+            'Nomor_Telepon' => 'required|string|max:20',
+            'Kemitraan' => 'required|in:Platinum,Gold,Silver',
+            'Bergabung' => 'required|date',
+        ], [
+            'Nama_Mitra.required' => 'Nama mitra harus diisi',
+            'Alamat.required' => 'Alamat harus diisi',
+            'Email.required' => 'Email harus diisi',
+            'Email.email' => 'Format email tidak valid',
+            'Email.unique' => 'Email sudah digunakan mitra lain',
+            'Nomor_Telepon.required' => 'Nomor telepon harus diisi',
+            'Kemitraan.required' => 'Level kemitraan harus dipilih',
+            'Bergabung.required' => 'Tanggal bergabung harus diisi',
         ]);
-        $Mitra_Id=$request->Mitra_Id;
-        $Mitra = Mitra::findOrFail($Mitra_Id);
 
-        $Mitra->Nama_Mitra=$request->Nama_Mitra;
-        $Mitra->Alamat=$request->Alamat;
-        $Mitra->Email=$request->Email;
-        $Mitra->Nomor_Telepon=$request->Nomor_Telepon;
-        $Mitra->Kemitraan=$request->Kemitraan;
-        $Mitra->Bergabung=$request->Bergabung;
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
-        $Mitra->save();
+        $mitra = Mitra::findOrFail($request->Mitra_Id);
 
-        return redirect()->route('Mitra.list')->with('success', 'Perubahan Data Berhasil!');
+        $mitra->nama_mitra = $request->Nama_Mitra;
+        $mitra->alamat = $request->Alamat;
+        $mitra->email = $request->Email;
+        $mitra->nomor_telepon = $request->Nomor_Telepon;
+        $mitra->kemitraan = $request->Kemitraan;
+        $mitra->bergabung = $request->Bergabung;
+
+        $mitra->save();
+
+        return redirect()->route('Mitra.list')
+            ->with('success', 'Mitra berhasil diperbarui!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $param1)
+    public function destroy($Mitra_Id)
     {
-        $Mitra = Mitra::findOrFail($param1);
+        $mitra = Mitra::findOrFail($Mitra_Id);
+        $mitra->delete();
 
-        $Mitra->delete();
-
-        return redirect()->route('Mitra.list')->with('success', 'Penghapusan Data Berhasil!');
+        return redirect()->route('Mitra.list')
+            ->with('success', 'Mitra berhasil dihapus!');
     }
 }

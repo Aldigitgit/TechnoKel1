@@ -11,35 +11,63 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Pesan', function (Blueprint $table) {
-            $table->increments('pesan_id');
-            // Detail Pemesanan
-            $table->string('jenis_kue');
-            $table->string('ukuran_kue');
-            $table->string('rasa_kue');
-            $table->string('pesan_kue')->nullable();
-            $table->timestamp('tanggal_pengambilan');
-            $table->string('tema_kue')->nullable();
-
-            // Detail Pengiriman
-            $table->string('alamat_pengiriman')->nullable();
-            $table->string('nama_penerima')->nullable();
-            $table->string('kontak_penerima')->nullable();
-
-            // Detail Pemesan
-            $table->string('nama_pemesan');
-            $table->string('kontak_pemesan');
-            $table->string('email_pemesan');
-
-            // Detail Pembayaran
-            $table->decimal('nominal_dp', 10, 2)->nullable();
-            $table->string('metode_pembayaran')->nullable();
-            $table->string('bukti_pembayaran')->nullable();
-
-            // Catatan Tambahan
-            $table->text('instruksi_khusus')->nullable();
-
+        Schema::create('pesanans', function (Blueprint $table) {
+            $table->id('pesanan_id');
             $table->timestamps();
+            
+            // ========== 1. Detail Pemesanan ==========
+            $table->enum('jenis_produk', [
+                'Bakpao Manis', 
+                'Bakpao Gurih', 
+                'Bakpao Spesial', 
+                'Dimsum Goreng'
+            ])->nullable();
+            
+            $table->string('varian_produk', 100)->nullable();
+            $table->integer('jumlah_pesanan')->default(1);
+            $table->dateTime('tanggal_pengambilan');
+            $table->text('catatan_pesanan')->nullable();
+            
+            // ========== 2. Detail Pengiriman ==========
+            $table->boolean('ambil_di_toko')->default(false);
+            $table->text('alamat_pengiriman')->nullable();
+            $table->string('nama_penerima', 100)->nullable();
+            $table->string('kontak_penerima', 20)->nullable();
+            
+            // ========== 3. Detail Pemesan ==========
+            $table->string('nama_pemesan', 100);
+            $table->string('kontak_pemesan', 20);
+            $table->string('email_pemesan', 100)->nullable();
+            
+            // ========== 4. Status Pemesanan ==========
+            $table->enum('status', [
+                'pending',      // Menunggu konfirmasi
+                'confirmed',    // Sudah dikonfirmasi
+                'processing',   // Sedang diproses
+                'ready',        // Siap diambil/dikirim
+                'completed',    // Selesai
+                'cancelled'     // Dibatalkan
+            ])->default('pending');
+            
+            // ========== 5. Informasi Tambahan ==========
+            $table->text('instruksi_khusus')->nullable();
+            $table->decimal('total_harga', 12, 2)->nullable();
+            $table->decimal('dp_dibayar', 12, 2)->nullable();
+            $table->enum('metode_pembayaran', ['transfer', 'ewallet', 'cash', 'cod'])->nullable();
+            $table->string('bukti_pembayaran')->nullable();
+            
+            // Catatan admin
+            $table->text('catatan_admin')->nullable();
+            
+            // Waktu konfirmasi & penyelesaian
+            $table->dateTime('confirmed_at')->nullable();
+            $table->dateTime('completed_at')->nullable();
+            
+            // Index untuk pencarian
+            $table->index('status');
+            $table->index('tanggal_pengambilan');
+            $table->index('nama_pemesan');
+            $table->index('kontak_pemesan');
         });
     }
 
@@ -48,6 +76,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Pesan');
+        Schema::dropIfExists('pesanans');
     }
 };

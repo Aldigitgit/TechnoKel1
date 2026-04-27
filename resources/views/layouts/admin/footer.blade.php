@@ -3,7 +3,7 @@
         <div class="col-12 col-md-4 col-xl-6 mb-4 mb-md-0">
             <p class="mb-0 text-center text-lg-start">© 2019-<span class="current-year">2024</span> <a
                     class="text-primary fw-normal" href="https://themesberg.com"
-                    target="_blank">Ini Footer Mel's Cake</a></p>
+                    target="_blank">Ini Footer Duha Pao</a></p>
         </div>
         <div class="col-12 col-md-8 col-xl-6 text-center text-lg-start">
             <!-- List -->

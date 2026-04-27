@@ -6,26 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-
-        Schema::create('Produk', function (Blueprint $table) {
+        Schema::create('produk', function (Blueprint $table) {
             $table->increments('produk_id');
-            $table->string('nama_produk');
-            $table->integer('jumlah');
-            $table->enum('kategori', ['Brownies', 'Bolu_Gulung', 'Kue_UlangTahun']);
+            $table->string('nama_produk', 100)->unique();
+            $table->integer('jumlah')->default(0);
+            $table->enum('kategori', [
+                'Bakpao Manis', 
+                'Bakpao Gurih', 
+                'Bakpao Spesial', 
+                'Dimsum Goreng'
+            ]);
+            $table->integer('harga')->default(0);
             $table->date('tgl_masuk');
             $table->date('tgl_expired');
+            $table->timestamps();
         });
-
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('produk');

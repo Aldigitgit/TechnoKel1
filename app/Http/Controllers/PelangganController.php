@@ -4,113 +4,127 @@ namespace App\Http\Controllers;
 
 use App\Models\Pelanggan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PelangganController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
-        $filterAbleColumns=['gender'];
-        $searchAbleColumns=['first_name'];
-
-        $pagedata['dataPelanggan'] = Pelanggan::filter($request, $filterAbleColumns, $searchAbleColumns)
-        ->paginate(10)
-        ->onEachSide(2)
-        ->withQueryString();
-        return view('admin.pelanggan.index', $pagedata);
+        $query = Pelanggan::query();
+        
+        if ($request->has('gender') && $request->gender) {
+            $query->where('gender', $request->gender);
+        }
+        
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('first_name', 'like', '%' . $search . '%')
+                  ->orWhere('last_name', 'like', '%' . $search . '%')
+                  ->orWhere('email', 'like', '%' . $search . '%');
+            });
+        }
+        
+        $dataPelanggan = $query->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->onEachSide(2)
+            ->withQueryString();
+            
+        return view('Admin.Pelanggan.index', compact('dataPelanggan'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('admin.pelanggan.create');
+        return view('Admin.Pelanggan.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $request->validate([
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'birthday' => ['required', 'date'],
-            'gender' => ['required', 'in:Male,Female'],
-            'email' => ['required', 'email'],
-            'phone' => ['required', 'numeric'],
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
+            'birthday' => 'required|date|before:today',
+            'gender' => 'required|in:Female,Male',
+            'email' => 'required|email|unique:pelanggan,email',
+            'phone' => 'required|string|max:15',
+        ], [
+            'first_name.required' => 'Nama depan harus diisi',
+            'last_name.required' => 'Nama belakang harus diisi',
+            'birthday.required' => 'Tanggal lahir harus diisi',
+            'birthday.before' => 'Tanggal lahir harus sebelum hari ini',
+            'gender.required' => 'Jenis kelamin harus dipilih',
+            'email.required' => 'Email harus diisi',
+            'email.email' => 'Format email tidak valid',
+            'email.unique' => 'Email sudah terdaftar',
+            'phone.required' => 'Nomor telepon harus diisi',
         ]);
-        $data['first_name'] = $request->first_name;
-        $data['last_name'] = $request->last_name;
-        $data['birthday'] = $request->birthday;
-        $data['gender'] = $request->gender;
-        $data['email'] = $request->email;
-        $data['phone'] = $request->phone;
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $data = [
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'birthday' => $request->birthday,
+            'gender' => $request->gender,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ];
 
         Pelanggan::create($data);
 
-        return redirect()->route('pelanggan.list')->with('success', 'Penambahan Data Berhasil!');
+        return redirect()->route('pelanggan.list')
+            ->with('success', 'Pelanggan berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $param1)
     {
-        $pagedata['dataPelanggan'] = Pelanggan::findOrFail($param1);
-
-        return view('Admin.pelanggan.edit', $pagedata);
+        $dataPelanggan = Pelanggan::findOrFail($param1);
+        return view('Admin.Pelanggan.edit', compact('dataPelanggan'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request)
     {
-        $request->validate([
-            'pelanggan_id' => ['required'],
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'birthday' => ['required', 'date'],
-            'gender' => ['required', 'in:Male,Female'],
-            'email' => ['required', 'email'],
-            'phone' => ['required', 'numeric'],
+        $validator = Validator::make($request->all(), [
+            'pelanggan_id' => 'required|exists:pelanggan,pelanggan_id',
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
+            'birthday' => 'required|date|before:today',
+            'gender' => 'required|in:Female,Male',
+            'email' => 'required|email|unique:pelanggan,email,' . $request->pelanggan_id . ',pelanggan_id',
+            'phone' => 'required|string|max:15',
         ]);
-        $pelanggan_id=$request->pelanggan_id;
-        $pelanggan = Pelanggan::findOrFail($pelanggan_id);
 
-        $pelanggan->first_name=$request->first_name;
-        $pelanggan->last_name=$request->last_name;
-        $pelanggan->birthday=$request->birthday;
-        $pelanggan->gender=$request->gender;
-        $pelanggan->email=$request->email;
-        $pelanggan->phone=$request->phone;
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $pelanggan = Pelanggan::findOrFail($request->pelanggan_id);
+
+        $pelanggan->first_name = $request->first_name;
+        $pelanggan->last_name = $request->last_name;
+        $pelanggan->birthday = $request->birthday;
+        $pelanggan->gender = $request->gender;
+        $pelanggan->email = $request->email;
+        $pelanggan->phone = $request->phone;
 
         $pelanggan->save();
 
-        return redirect()->route('pelanggan.list')->with('success', 'Perubahan Data Berhasil!');
+        return redirect()->route('pelanggan.list')
+            ->with('success', 'Pelanggan berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $param1)
     {
         $pelanggan = Pelanggan::findOrFail($param1);
-
         $pelanggan->delete();
 
-        return redirect()->route('pelanggan.list')->with('success', 'Penghapusan Data Berhasil!');
+        return redirect()->route('pelanggan.list')
+            ->with('success', 'Pelanggan berhasil dihapus!');
     }
 }
