@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MitraController;
+use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ProdukController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PelangganController;
+use Illuminate\Support\Facades\Route;
 
 // ========== ROUTE TANPA MIDDLEWARE (PUBLIC) ==========
 Route::get('/', function () {
