@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\produk;
 use Illuminate\Database\Seeder;
 
-class produkSeeder extends Seeder
+class produkseeder extends Seeder
 {
     public function run(): void
     {

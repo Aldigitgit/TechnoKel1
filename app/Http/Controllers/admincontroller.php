@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +17,7 @@ class admincontroller extends Controller
     {
         $filterAbleColumns = ['role'];
         
-        $dataadmin = User::filter($request, $filterAbleColumns)
+        $dataadmin = user::filter($request, $filterAbleColumns)
             ->orderBy('created_at', 'desc')
             ->paginate(10)
             ->onEachSide(2)
@@ -71,7 +71,7 @@ class admincontroller extends Controller
             'role' => $request->role,
         ];
 
-        User::create($data);
+        user::create($data);
 
         return redirect()->route('admin.list')
             ->with('success', 'User berhasil ditambahkan!');
@@ -82,7 +82,7 @@ class admincontroller extends Controller
      */
     public function show(string $id)
     {
-        $dataadmin = User::findOrFail($id);
+        $dataadmin = user::findOrFail($id);
         return view('admin.admin.show', compact('dataadmin'));
     }
 
@@ -91,7 +91,7 @@ class admincontroller extends Controller
      */
     public function edit(string $param1)
     {
-        $dataadmin = User::findOrFail($param1);
+        $dataadmin = user::findOrFail($param1);
         return view('admin.admin.edit', compact('dataadmin'));
     }
 
@@ -124,7 +124,7 @@ class admincontroller extends Controller
                 ->withInput();
         }
 
-        $user = User::findOrFail($request->user_id);
+        $user = user::findOrFail($request->user_id);
         
         // Cek jika mencoba mengubah user yang sedang login
         if (Auth::id() == $user->id && $request->role != $user->role) {
@@ -153,7 +153,7 @@ class admincontroller extends Controller
      */
     public function destroy(string $param1)
     {
-        $user = User::findOrFail($param1);
+        $user = user::findOrFail($param1);
         
         // Cek jangan hapus user sendiri
         if (Auth::id() == $user->id) {
@@ -176,7 +176,7 @@ class admincontroller extends Controller
             'status' => 'required|in:active,inactive',
         ]);
 
-        $user = User::findOrFail($id);
+        $user = user::findOrFail($id);
         
         // Cek jangan non-aktifkan user sendiri
         if (Auth::id() == $user->id && $request->status == 'inactive') {

@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mitra;
+use App\Models\mitra;
 use App\Models\pesan;
-use App\Models\Produk;
-use App\Models\User;
+use App\Models\produk;
+use App\Models\user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
 
-class dashBoardController extends Controller
+class dashboardcontroller extends Controller
 {
     public function index()
     {
 
-        $produk = Produk::select('nama_produk', 'jumlah', 'tgl_masuk', 'tgl_expired')->get();
+        $produk = produk::select('nama_produk', 'jumlah', 'tgl_masuk', 'tgl_expired')->get();
 
         // Data untuk chart
         $labels = $produk->pluck('nama_produk');
@@ -25,11 +25,11 @@ class dashBoardController extends Controller
         $tglExpired = $produk->pluck('tgl_expired')->map(fn($d) => strtotime($d));
 
         // Statistik utama
-        $Mitra = Mitra::count();
-        $Pelanggan = User::where('role', 'Pelanggan')->count();
-        $admin = User::where('role', 'administrator')->count();
+        $Mitra = mitra::count();
+        $Pelanggan = user::where('role', 'Pelanggan')->count();
+        $admin = user::where('role', 'administrator')->count();
         $pesan = pesan::count();
-        $TotalProduk = Produk::count();
+        $TotalProduk = produk::count();
 
         // 5 pesanan terbaru
         $pesanTerbaru = pesan::latest()->take(5)->get();

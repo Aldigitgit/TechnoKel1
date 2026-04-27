@@ -6,7 +6,7 @@ use App\Models\produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class produkController extends Controller
+class produkcontroller extends Controller
 {
     public function index(Request $request)
     {

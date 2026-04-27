@@ -6,7 +6,7 @@ use App\Models\pelanggan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class pelangganController extends Controller
+class pelanggancontroller extends Controller
 {
     public function index(Request $request)
     {
