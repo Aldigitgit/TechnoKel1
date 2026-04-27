@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pelanggan;
+use App\Models\Pelanggan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class pelanggancontroller extends Controller
+class PelangganController extends Controller
 {
     public function index(Request $request)
     {
-        $query = pelanggan::query();
+        $query = Pelanggan::query();
 
         if ($request->has('gender') && $request->gender) {
             $query->where('gender', $request->gender);
@@ -74,7 +74,7 @@ class pelanggancontroller extends Controller
             'phone' => $request->phone,
         ];
 
-        pelanggan::create($data);
+        Pelanggan::create($data);
 
         return redirect()->route('pelanggan.list')
             ->with('success', 'pelanggan berhasil ditambahkan!');
@@ -82,7 +82,7 @@ class pelanggancontroller extends Controller
 
     public function edit(string $param1)
     {
-        $datapelanggan = pelanggan::findOrFail($param1);
+        $datapelanggan = Pelanggan::findOrFail($param1);
         return view('admin.pelanggan.edit', compact('datapelanggan'));
     }
 
@@ -104,7 +104,7 @@ class pelanggancontroller extends Controller
                 ->withInput();
         }
 
-        $pelanggan = pelanggan::findOrFail($request->pelanggan_id);
+        $pelanggan = Pelanggan::findOrFail($request->pelanggan_id);
 
         $pelanggan->first_name = $request->first_name;
         $pelanggan->last_name = $request->last_name;
@@ -121,7 +121,7 @@ class pelanggancontroller extends Controller
 
     public function destroy(string $param1)
     {
-        $pelanggan = pelanggan::findOrFail($param1);
+        $pelanggan = Pelanggan::findOrFail($param1);
         $pelanggan->delete();
 
         return redirect()->route('pelanggan.list')

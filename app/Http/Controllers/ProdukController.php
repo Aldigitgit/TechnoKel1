@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\produk;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class produkcontroller extends Controller
+class ProdukController extends Controller
 {
     public function index(Request $request)
     {
-        $query = produk::query();
+        $query = Produk::query();
 
         if ($request->has('kategori') && $request->kategori) {
             $query->where('kategori', $request->kategori);
@@ -74,7 +74,7 @@ class produkcontroller extends Controller
             'tgl_expired' => $request->tgl_expired,
         ];
 
-        produk::create($data);
+        Produk::create($data);
 
         return redirect()->route('produk.list')
             ->with('success', 'produk berhasil ditambahkan!');
@@ -82,7 +82,7 @@ class produkcontroller extends Controller
 
     public function edit(string $param1)
     {
-        $dataproduk = produk::findOrFail($param1);
+        $dataproduk = Produk::findOrFail($param1);
         return view('admin.produk.edit', compact('dataproduk'));
     }
 
@@ -104,7 +104,7 @@ class produkcontroller extends Controller
                 ->withInput();
         }
 
-        $produk = produk::findOrFail($request->produk_id);
+        $produk = Produk::findOrFail($request->produk_id);
 
         $produk->nama_produk = $request->nama_produk;
         $produk->jumlah = $request->jumlah;
@@ -121,7 +121,7 @@ class produkcontroller extends Controller
 
     public function destroy(string $param1)
     {
-        $produk = produk::findOrFail($param1);
+        $produk = Produk::findOrFail($param1);
         $produk->delete();
 
         return redirect()->route('produk.list')

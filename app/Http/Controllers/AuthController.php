@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\user;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class authcontroller extends Controller
+class AuthController extends Controller
 {
     public function register()
     {
@@ -26,7 +26,7 @@ class authcontroller extends Controller
             'email.unique' => 'Email sudah terdaftar.',
         ]);
 
-        user::create([
+        User::create([
             'name' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -46,7 +46,7 @@ class authcontroller extends Controller
     public function kirimlogin(request $request)
     {
 
-        $admin = user::where('email', $request->email)->first();
+        $admin = User::where('email', $request->email)->first();
         if ($admin && Hash::check($request->password, $admin->password)) {
 
             Auth::login($admin);

@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\user;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class createadministrator extends Seeder
+class CreateAdministrator extends Seeder
 {
     public function run(): void
     {
-        if (!user::where('email', 'admin@gmail.com')->exists()) {
-            user::create([
+        if (!User::where('email', 'admin@gmail.com')->exists()) {
+            User::create([
                 'name' => 'administrator',
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('admin123'),

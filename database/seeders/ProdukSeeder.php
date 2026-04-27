@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\produk;
+use App\Models\Produk;
 use Illuminate\Database\Seeder;
 
-class produkseeder extends Seeder
+class ProdukSeeder extends Seeder
 {
     public function run(): void
     {
@@ -43,8 +43,8 @@ class produkseeder extends Seeder
         ];
 
         foreach ($produkData as $data) {
-            if (!produk::where('nama_produk', $data['nama_produk'])->exists()) {
-                produk::create($data);
+            if (!Produk::where('nama_produk', $data['nama_produk'])->exists()) {
+                Produk::create($data);
             }
         }
     }

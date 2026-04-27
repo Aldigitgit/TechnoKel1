@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\pesan;
+use App\Models\Pesan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class pesanController extends Controller
+class PesanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $datapesan = pesan::latest()->paginate(10);
+        $datapesan = Pesan::latest()->paginate(10);
         return view('pelanggan.index', compact('datapesan'));
     }
 
@@ -139,7 +139,7 @@ class pesanController extends Controller
         }
 
         // Simpan data ke database
-        $pesanan = pesan::create($data);
+        $pesanan = Pesan::create($data);
 
         // Redirect ke halaman sukses
         return redirect()->route('pesan.success', $pesanan->pesanan_id)
@@ -151,7 +151,7 @@ class pesanController extends Controller
      */
     public function success(string $id)
     {
-        $pesanan = pesan::findOrFail($id);
+        $pesanan = Pesan::findOrFail($id);
         return view('pelanggan.success', compact('pesanan'));
     }
 
@@ -160,7 +160,7 @@ class pesanController extends Controller
      */
     public function show(string $id)
     {
-        $pesanan = pesan::findOrFail($id);
+        $pesanan = Pesan::findOrFail($id);
         return view('pelanggan.show', compact('pesanan'));
     }
 
@@ -169,7 +169,7 @@ class pesanController extends Controller
      */
     public function edit(string $id)
     {
-        $datapesan = pesan::findOrFail($id);
+        $datapesan = Pesan::findOrFail($id);
         return view('pelanggan.edit', compact('datapesan'));
     }
 
@@ -205,7 +205,7 @@ class pesanController extends Controller
                 ->withInput();
         }
 
-        $pesanan = pesan::findOrFail($request->pesanan_id);
+        $pesanan = Pesan::findOrFail($request->pesanan_id);
 
         // Update data
         $pesanan->jenis_produk = $request->jenis_produk;
@@ -280,7 +280,7 @@ class pesanController extends Controller
      */
     public function destroy(string $id)
     {
-        $pesanan = pesan::findOrFail($id);
+        $pesanan = Pesan::findOrFail($id);
 
         // Hapus file bukti pembayaran jika ada
 // Hapus file bukti pembayaran jika ada
@@ -304,7 +304,7 @@ class pesanController extends Controller
             'status' => 'required|in:pending,confirmed,processing,ready,completed,cancelled',
         ]);
 
-        $pesanan = pesan::findOrFail($id);
+        $pesanan = Pesan::findOrFail($id);
         $pesanan->status = $request->status;
 
         // Set waktu konfirmasi jika status menjadi confirmed

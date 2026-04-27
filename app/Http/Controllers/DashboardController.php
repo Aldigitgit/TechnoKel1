@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\mitra;
-use App\Models\pesan;
-use App\Models\produk;
-use App\Models\user;
+use App\Models\Mitra;
+use App\Models\Pesan;
+use App\Models\Produk;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
 
-class dashboardcontroller extends Controller
+class DashboardController extends Controller
 {
     public function index()
     {
 
-        $produk = produk::select('nama_produk', 'jumlah', 'tgl_masuk', 'tgl_expired')->get();
+        $produk = Produk::select('nama_produk', 'jumlah', 'tgl_masuk', 'tgl_expired')->get();
 
         // Data untuk chart
         $labels = $produk->pluck('nama_produk');
@@ -25,14 +25,14 @@ class dashboardcontroller extends Controller
         $tglExpired = $produk->pluck('tgl_expired')->map(fn($d) => strtotime($d));
 
         // Statistik utama
-        $Mitra = mitra::count();
-        $Pelanggan = user::where('role', 'Pelanggan')->count();
-        $admin = user::where('role', 'administrator')->count();
-        $pesan = pesan::count();
-        $TotalProduk = produk::count();
+        $Mitra = Mitra::count();
+        $Pelanggan = User::where('role', 'Pelanggan')->count();
+        $admin = User::where('role', 'administrator')->count();
+        $pesan = Pesan::count();
+        $TotalProduk = Produk::count();
 
         // 5 pesanan terbaru
-        $pesanTerbaru = pesan::latest()->take(5)->get();
+        $pesanTerbaru = Pesan::latest()->take(5)->get();
 
         return view('admin.dashboard', compact(
             'Mitra',

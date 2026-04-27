@@ -2,36 +2,42 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class mitra extends Model
+class Pelanggan extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'mitra_id';
-    protected $table = 'mitra';
+    protected $primaryKey = 'pelanggan_id';
+    protected $table = 'pelanggan';
 
     protected $fillable = [
-        'nama_mitra',
-        'alamat',
+        'first_name',
+        'last_name',
+        'birthday',
+        'gender',
         'email',
-        'nomor_telepon',
-        'kemitraan',
-        'bergabung',
+        'phone'
     ];
 
     protected $casts = [
-        'bergabung' => 'date',
+        'birthday' => 'date',
     ];
+
+    // Accessor untuk nama lengkap
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 
     public function scopeFilter(Builder $query, $request, array $filterableColumns, array $searchableColumns): Builder
     {
         foreach ($filterableColumns as $column) {
             if ($request->filled($column)) {
-                if ($column === 'bergabung') {
-                    $query->whereYear('bergabung', $request->input($column));
+                if ($column === 'birthday') {
+                    $query->whereYear('birthday', $request->input($column));
                 } else {
                     $query->where($column, $request->input($column));
                 }

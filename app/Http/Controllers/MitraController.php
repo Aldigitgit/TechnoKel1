@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\mitra;
+use App\Models\Mitra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class mitracontroller extends Controller
+class MitraController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $query = mitra::query();
+        $query = Mitra::query();
         
         // Filter berdasarkan level kemitraan
         if ($request->has('Kemitraan') && $request->Kemitraan) {
@@ -91,7 +91,7 @@ class mitracontroller extends Controller
             'bergabung' => $request->Bergabung,
         ];
 
-        mitra::create($data);
+        Mitra::create($data);
 
         return redirect()->route('mitra.list')
             ->with('success', 'Mitra berhasil ditambahkan!');
@@ -102,7 +102,7 @@ class mitracontroller extends Controller
      */
     public function show($Mitra_Id)
     {
-        $dataMitra = mitra::findOrFail($Mitra_Id);
+        $dataMitra = Mitra::findOrFail($Mitra_Id);
         return view('admin.mitra.show', compact('dataMitra'));
     }
 
@@ -111,7 +111,7 @@ class mitracontroller extends Controller
      */
     public function edit($Mitra_Id)
     {
-        $dataMitra = mitra::findOrFail($Mitra_Id);
+        $dataMitra = Mitra::findOrFail($Mitra_Id);
         return view('admin.mitra.edit', compact('dataMitra'));
     }
 
@@ -145,7 +145,7 @@ class mitracontroller extends Controller
                 ->withInput();
         }
 
-        $mitra = mitra::findOrFail($request->mitra_id);
+        $mitra = Mitra::findOrFail($request->mitra_id);
 
         $mitra->nama_mitra = $request->Nama_Mitra;
         $mitra->alamat = $request->Alamat;
@@ -165,7 +165,7 @@ class mitracontroller extends Controller
      */
     public function destroy($Mitra_Id)
     {
-        $mitra = mitra::findOrFail($Mitra_Id);
+        $mitra = Mitra::findOrFail($Mitra_Id);
         $mitra->delete();
 
         return redirect()->route('mitra.list')
