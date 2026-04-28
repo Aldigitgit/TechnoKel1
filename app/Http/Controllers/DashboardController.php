@@ -25,21 +25,21 @@ class DashboardController extends Controller
         $tglExpired = $produk->pluck('tgl_expired')->map(fn($d) => strtotime($d));
 
         // Statistik utama
-        $Mitra = Mitra::count();
-        $Pelanggan = User::where('role', 'Pelanggan')->count();
+        $mitra = Mitra::count();
+        $pelanggan = User::where('role', 'Pelanggan')->count();
         $admin = User::where('role', 'administrator')->count();
         $pesan = Pesan::count();
-        $TotalProduk = Produk::count();
+        $Totalproduk = Produk::count();
 
         // 5 pesanan terbaru
         $pesanTerbaru = Pesan::latest()->take(5)->get();
 
         return view('admin.dashboard', compact(
-            'Mitra',
-            'Pelanggan',
+            'mitra',
+            'pelanggan',
             'admin',
             'pesan',
-            'TotalProduk',
+            'Totalproduk',
             'pesanTerbaru',
             'labels',
             'data',
