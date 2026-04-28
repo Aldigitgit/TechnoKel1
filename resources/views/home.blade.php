@@ -13,15 +13,15 @@
             <div class="hero-bg-text">DUHA PAO</div>
             <div class="hero-inner">
                 <div class="hero-text">
-                    <div class="hero-badge"><span>🏪 Pangkalan Kerinci, Pelalawan</span></div>
+                    <div class="hero-badge"><span>🏪 Pekanbaru, Riau</span></div>
                     <h1>Bakpao & Dimsum<br><em>Lezat</em> Setiap Hari</h1>
-                    <p>Dikukus & digoreng segar setiap pagi. Aneka pilihan rasa dari resep terbaik Duha Pao sejak 2005.</p>
+                    <p>Dikukus & digoreng segar setiap pagi. Aneka pilihan rasa dari resep terbaik Duha Pao sejak 2019.</p>
                     <div class="hero-buttons">
                         <a href="{{ route('pesan.create') }}" class="btn-primary">pesan Sekarang</a>
                         <a href="#product-cards" class="btn-secondary">Lihat Menu</a>
                     </div>
                     <div class="hero-stats">
-                        <div class="stat-item"><span class="stat-num">2005</span><span class="stat-label">Berdiri
+                        <div class="stat-item"><span class="stat-num">2019</span><span class="stat-label">Berdiri
                                 Sejak</span></div>
                         <div class="stat-item"><span class="stat-num">16+</span><span class="stat-label">Varian Menu</span>
                         </div>
@@ -346,8 +346,7 @@
                             sederhana melalui WhatsApp, pendekatan personal membantu menjaga hubungan baik dengan pelanggan.
                         </p>
                         <div class="about-highlights">
-                            <div class="highlight"><span class="num">2005</span><span class="lbl">Berdiri</span></div>
-                            <div class="highlight"><span class="num">2017</span><span class="lbl">Buka Toko</span></div>
+                            <div class="highlight"><span class="num">2019</span><span class="lbl">Berdiri</span></div>
                             <div class="highlight"><span class="num">16+</span><span class="lbl">Varian</span></div>
                             <div class="highlight"><span class="num">⭐ 4.8</span><span class="lbl">Rating</span></div>
                         </div>

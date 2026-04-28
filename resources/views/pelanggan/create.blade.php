@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>pesan Bakpao & Dimsum | Duha Pao</title>
+  <title>Pesan Bakpao & Dimsum | Duha Pao</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    /* (CSS nya sama seperti yang kamu punya, tidak saya ubah) */
     * {
       margin: 0;
       padding: 0;
@@ -31,7 +30,7 @@
       font-family: 'Nunito', 'Segoe UI', sans-serif;
       background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
       min-height: 100vh;
-      padding: 2rem 0;
+      padding: 1rem;
       position: relative;
     }
 
@@ -60,6 +59,7 @@
     .container {
       position: relative;
       z-index: 1;
+      max-width: 1400px;
     }
 
     .order-card {
@@ -67,16 +67,11 @@
       border-radius: 32px;
       overflow: hidden;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      transition: transform 0.3s ease;
-    }
-
-    .order-card:hover {
-      transform: translateY(-5px);
     }
 
     .card-header-custom {
       background: linear-gradient(135deg, var(--brown-dark) 0%, var(--brown) 50%, var(--brown-mid) 100%);
-      padding: 2rem;
+      padding: 1.5rem;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -102,26 +97,38 @@
 
     .card-header-custom h2 {
       font-family: 'Playfair Display', serif;
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 700;
       color: white;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
       position: relative;
       z-index: 1;
     }
 
     .card-header-custom p {
       color: rgba(255, 212, 168, 0.8);
-      font-size: 14px;
+      font-size: 13px;
       position: relative;
       z-index: 1;
+    }
+
+    /* Layout 2 Kolom */
+    .form-two-columns {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1.5rem;
+    }
+
+    .form-column {
+      flex: 1;
+      min-width: 0;
     }
 
     .form-section {
       background: white;
       border-radius: 20px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
       border: 1px solid rgba(212, 136, 46, 0.15);
       transition: all 0.3s ease;
     }
@@ -133,40 +140,40 @@
 
     .section-title {
       font-family: 'Playfair Display', serif;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--brown-dark);
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
       border-bottom: 2px solid var(--gold);
       display: inline-block;
     }
 
     .form-label {
       font-weight: 600;
-      font-size: 13px;
+      font-size: 12px;
       color: var(--brown);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.35rem;
     }
 
     .form-control, .form-select {
       border-radius: 12px;
       border: 2px solid #F0E5D8;
-      padding: 10px 14px;
-      font-size: 14px;
+      padding: 8px 12px;
+      font-size: 13px;
       transition: all 0.3s ease;
       font-family: 'Nunito', sans-serif;
     }
 
     .form-control:focus, .form-select:focus {
       border-color: var(--gold);
-      box-shadow: 0 0 0 4px rgba(212, 136, 46, 0.1);
+      box-shadow: 0 0 0 3px rgba(212, 136, 46, 0.1);
       outline: none;
     }
 
     textarea.form-control {
       resize: vertical;
-      min-height: 80px;
+      min-height: 70px;
     }
 
     .required::after {
@@ -179,10 +186,10 @@
       background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
       color: white;
       border: none;
-      padding: 14px 32px;
+      padding: 12px 28px;
       border-radius: 50px;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 15px;
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(212, 136, 46, 0.3);
       width: 100%;
@@ -194,15 +201,11 @@
       background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
     }
 
-    .btn-submit:active {
-      transform: translateY(0);
-    }
-
     .alert-custom {
       border-radius: 16px;
       border: none;
-      padding: 1rem 1.25rem;
-      margin-bottom: 1.5rem;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
       animation: slideIn 0.3s ease;
     }
 
@@ -226,11 +229,12 @@
     .product-preview {
       background: var(--cream-mid);
       border-radius: 16px;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
+      padding: 0.75rem;
+      margin-bottom: 1.25rem;
       display: flex;
       align-items: center;
-      gap: 1rem;
+      justify-content: center;
+      gap: 0.75rem;
       flex-wrap: wrap;
     }
 
@@ -239,43 +243,44 @@
       align-items: center;
       gap: 0.5rem;
       background: white;
-      padding: 0.5rem 1rem;
+      padding: 0.4rem 0.9rem;
       border-radius: 50px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--brown);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
     .product-preview-item span {
-      font-size: 20px;
+      font-size: 18px;
     }
 
-    @media (max-width: 768px) {
-      body {
+    .footer-note {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(212, 136, 46, 0.2);
+    }
+
+    @media (max-width: 992px) {
+      .form-two-columns {
+        flex-direction: column;
+        gap: 1rem;
         padding: 1rem;
       }
       .card-header-custom h2 {
         font-size: 24px;
       }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 0.5rem;
+      }
       .form-section {
         padding: 1rem;
       }
       .section-title {
-        font-size: 18px;
-      }
-      .product-preview {
-        justify-content: center;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .form-section {
-        padding: 0.875rem;
-      }
-      .btn-submit {
-        padding: 12px 24px;
-        font-size: 14px;
+        font-size: 16px;
       }
     }
 
@@ -283,22 +288,18 @@
       pointer-events: none;
       opacity: 0.7;
     }
-
-    .btn-submit.loading::after {
-      content: ' ⏳';
-    }
   </style>
 </head>
 <body>
 
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-lg-8">
+    <div class="col-12">
 
       @if ($errors->any())
         <div class="alert-custom alert-danger">
           <strong>❌ Periksa kembali input Anda!</strong>
-          <ul class="mb-0 mt-2">
+          <ul class="mb-0 mt-1">
             @foreach ($errors->all() as $error)
               <li>{{ $error }}</li>
             @endforeach
@@ -308,26 +309,27 @@
 
       <div class="order-card">
         <div class="card-header-custom">
-          <h2>✨ pesan Duha Pao ✨</h2>
+          <h2>✨ Pesan Duha Pao ✨</h2>
           <p>Isi form di bawah untuk memesan bakpao, risol, dan dimsum favorit Anda</p>
         </div>
 
-        <div class="p-4 p-md-5">
-          <div class="product-preview">
-            <div class="product-preview-item"><span>🥟</span> Bakpao Kukus</div>
-            <div class="product-preview-item"><span>🌯</span> Risol Mayo</div>
-            <div class="product-preview-item"><span>🥠</span> Dimsum</div>
-          </div>
+        <div class="product-preview">
+          <div class="product-preview-item"><span>🥟</span> Bakpao Kukus</div>
+          <div class="product-preview-item"><span>🌯</span> Risol Mayo</div>
+          <div class="product-preview-item"><span>🥠</span> Dimsum</div>
+        </div>
 
-          <form action="{{ route('pesan.store') }}" method="post" enctype="multipart/form-data" id="orderForm">
-            @csrf
+        <form action="{{ route('pesan.store') }}" method="post" enctype="multipart/form-data" id="orderForm">
+          @csrf
 
-            <!-- 1. Detail Pemesanan -->
-            <div class="form-section">
-              <h5 class="section-title">📋 Detail Pemesanan</h5>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="jenis_produk" class="form-label required">Jenis produk</label>
+          <div class="form-two-columns">
+            <!-- KOLOM KIRI -->
+            <div class="form-column">
+              <!-- Detail Pemesanan -->
+              <div class="form-section">
+                <h5 class="section-title">📋 Detail Pemesanan</h5>
+                <div class="mb-2">
+                  <label for="jenis_produk" class="form-label required">Jenis Produk</label>
                   <select class="form-select" id="jenis_produk" name="jenis_produk" required>
                     <option value="">Pilih jenis produk...</option>
                     <option value="Bakpao Manis">🥟 Bakpao Manis</option>
@@ -336,115 +338,118 @@
                     <option value="Dimsum">🥠 Dimsum</option>
                   </select>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="varian_produk" class="form-label required">Varian produk</label>
+                <div class="mb-2">
+                  <label for="varian_produk" class="form-label required">Varian Produk</label>
                   <select class="form-select" id="varian_produk" name="varian_produk" required>
                     <option value="">Pilih varian...</option>
                   </select>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="jumlah_pesanan" class="form-label required">Jumlah pesanan (pcs)</label>
-                  <input type="number" class="form-control" id="jumlah_pesanan" name="jumlah_pesanan" placeholder="Contoh: 10" min="1" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="tanggal_pengambilan" class="form-label required">Tanggal & Waktu Pengambilan</label>
-                  <input type="datetime-local" class="form-control" id="tanggal_pengambilan" name="tanggal_pengambilan" required>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="catatan_pesanan" class="form-label">Catatan pesanan (Opsional)</label>
-                <textarea class="form-control" id="catatan_pesanan" name="catatan_pesanan" rows="2" placeholder="Contoh: tidak pakai plastik, potong jadi 4, dll"></textarea>
-              </div>
-            </div>
-
-            <!-- 2. Detail Pengiriman -->
-            <div class="form-section">
-              <h5 class="section-title">🚚 Detail Pengiriman</h5>
-              <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" id="ambil_di_toko" name="ambil_di_toko" value="1" onclick="toggleDelivery()">
-                <label class="form-check-label" for="ambil_di_toko">
-                  Ambil sendiri di toko (tidak perlu dikirim)
-                </label>
-              </div>
-              <div id="deliveryFields">
-                <div class="mb-3">
-                  <label for="alamat_pengiriman" class="form-label">Alamat Pengiriman</label>
-                  <input type="text" class="form-control" id="alamat_pengiriman" name="alamat_pengiriman" placeholder="Masukkan alamat lengkap">
-                </div>
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="nama_penerima" class="form-label">Nama Penerima</label>
-                    <input type="text" class="form-control" id="nama_penerima" name="nama_penerima" placeholder="Nama penerima">
+                <div class="row g-2">
+                  <div class="col-md-6 mb-2">
+                    <label for="jumlah_pesanan" class="form-label required">Jumlah (pcs)</label>
+                    <input type="number" class="form-control" id="jumlah_pesanan" name="jumlah_pesanan" placeholder="Jumlah" min="1" required>
                   </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="kontak_penerima" class="form-label">Nomor Telepon Penerima</label>
-                    <input type="text" class="form-control" id="kontak_penerima" name="kontak_penerima" placeholder="Nomor telepon penerima">
+                  <div class="col-md-6 mb-2">
+                    <label for="tanggal_pengambilan" class="form-label required">Tanggal Ambil</label>
+                    <input type="datetime-local" class="form-control" id="tanggal_pengambilan" name="tanggal_pengambilan" required>
                   </div>
                 </div>
+                <div class="mb-2">
+                  <label for="catatan_pesanan" class="form-label">Catatan Pesanan</label>
+                  <textarea class="form-control" id="catatan_pesanan" name="catatan_pesanan" rows="2" placeholder="Contoh: tidak pakai plastik, potong jadi 4, dll"></textarea>
+                </div>
+              </div>
+
+              <!-- Detail Pengiriman -->
+              <div class="form-section">
+                <h5 class="section-title">🚚 Detail Pengiriman</h5>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="ambil_di_toko" name="ambil_di_toko" value="1" onclick="toggleDelivery()">
+                  <label class="form-check-label" for="ambil_di_toko">
+                    Ambil sendiri di toko (tidak perlu dikirim)
+                  </label>
+                </div>
+                <div id="deliveryFields">
+                  <div class="mb-2">
+                    <label for="alamat_pengiriman" class="form-label">Alamat Pengiriman</label>
+                    <input type="text" class="form-control" id="alamat_pengiriman" name="alamat_pengiriman" placeholder="Masukkan alamat lengkap">
+                  </div>
+                  <div class="row g-2">
+                    <div class="col-md-6 mb-2">
+                      <label for="nama_penerima" class="form-label">Nama Penerima</label>
+                      <input type="text" class="form-control" id="nama_penerima" name="nama_penerima" placeholder="Nama penerima">
+                    </div>
+                    <div class="col-md-6 mb-2">
+                      <label for="kontak_penerima" class="form-label">No. Telepon Penerima</label>
+                      <input type="text" class="form-control" id="kontak_penerima" name="kontak_penerima" placeholder="Nomor telepon">
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- 3. Detail Pemesan -->
-            <div class="form-section">
-              <h5 class="section-title">👤 Detail Pemesan</h5>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="nama_pemesan" class="form-label required">Nama Lengkap</label>
-                  <input type="text" class="form-control" id="nama_pemesan" name="nama_pemesan" placeholder="Nama lengkap Anda" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="kontak_pemesan" class="form-label required">Nomor WhatsApp</label>
-                  <input type="text" class="form-control" id="kontak_pemesan" name="kontak_pemesan" placeholder="08xxxxxxxxxx" required>
+            <!-- KOLOM KANAN -->
+            <div class="form-column">
+              <!-- Detail Pemesan -->
+              <div class="form-section">
+                <h5 class="section-title">👤 Detail Pemesan</h5>
+                <div class="row g-2">
+                  <div class="col-md-12 mb-2">
+                    <label for="nama_pemesan" class="form-label required">Nama Lengkap</label>
+                    <input type="text" class="form-control" id="nama_pemesan" name="nama_pemesan" placeholder="Nama lengkap Anda" required>
+                  </div>
+                  <div class="col-md-12 mb-2">
+                    <label for="kontak_pemesan" class="form-label required">Nomor WhatsApp</label>
+                    <input type="text" class="form-control" id="kontak_pemesan" name="kontak_pemesan" placeholder="08xxxxxxxxxx" required>
+                  </div>
+                  <div class="col-md-12 mb-2">
+                    <label for="email_pemesan" class="form-label">Email (Opsional)</label>
+                    <input type="email" class="form-control" id="email_pemesan" name="email_pemesan" placeholder="Alamat email">
+                  </div>
                 </div>
               </div>
-              <div class="mb-3">
-                <label for="email_pemesan" class="form-label">Email (Opsional)</label>
-                <input type="email" class="form-control" id="email_pemesan" name="email_pemesan" placeholder="Alamat email">
+
+              <!-- Detail Pembayaran -->
+              <div class="form-section">
+                <h5 class="section-title">💰 Detail Pembayaran</h5>
+                <div class="row g-2">
+                  <div class="col-md-6 mb-2">
+                    <label for="nominal_dp" class="form-label">Nominal DP</label>
+                    <input type="number" class="form-control" id="nominal_dp" name="nominal_dp" placeholder="Rp">
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <label for="metode_pembayaran" class="form-label">Metode</label>
+                    <select class="form-select" id="metode_pembayaran" name="metode_pembayaran">
+                      <option value="">Pilih...</option>
+                      <option value="transfer">Transfer Bank</option>
+                      <option value="ewallet">E-Wallet</option>
+                      <option value="cash">Cash (Bayar di tempat)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <label for="bukti_pembayaran" class="form-label">Bukti Pembayaran</label>
+                  <input type="file" class="form-control" id="bukti_pembayaran" name="bukti_pembayaran" accept="image/*">
+                  <small class="text-muted">Format: JPG, PNG (max 2MB)</small>
+                </div>
+                <div class="mb-2">
+                  <label for="instruksi_khusus" class="form-label">Instruksi Khusus</label>
+                  <textarea class="form-control" id="instruksi_khusus" name="instruksi_khusus" rows="2" placeholder="Contoh: alergi kacang, packaging khusus, dll"></textarea>
+                </div>
+              </div>
+
+              <!-- Tombol Submit -->
+              <div class="d-grid">
+                <button type="submit" class="btn-submit" id="submitBtn">
+                  🛒 Pesan Sekarang
+                </button>
+              </div>
+              <div class="footer-note text-center">
+                <p class="text-muted small mb-0">✅ Kami akan menghubungi Anda via WhatsApp untuk konfirmasi pesanan</p>
               </div>
             </div>
-
-            <!-- 4. Detail Pembayaran (Opsional) -->
-            <div class="form-section">
-              <h5 class="section-title">💰 Detail Pembayaran (Opsional)</h5>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="nominal_dp" class="form-label">Nominal DP</label>
-                  <input type="number" class="form-control" id="nominal_dp" name="nominal_dp" placeholder="Contoh: 50000">
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="metode_pembayaran" class="form-label">Metode Pembayaran</label>
-                  <select class="form-select" id="metode_pembayaran" name="metode_pembayaran">
-                    <option value="">Pilih metode...</option>
-                    <option value="transfer">Transfer Bank</option>
-                    <option value="ewallet">E-Wallet</option>
-                    <option value="cash">Cash (Bayar di tempat)</option>
-                  </select>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="bukti_pembayaran" class="form-label">Bukti Pembayaran (jika sudah transfer)</label>
-                <input type="file" class="form-control" id="bukti_pembayaran" name="bukti_pembayaran" accept="image/*">
-                <small class="text-muted">Format: JPG, PNG (max 2MB)</small>
-              </div>
-              <div class="mb-3">
-                <label for="instruksi_khusus" class="form-label">Instruksi Khusus (Opsional)</label>
-                <textarea class="form-control" id="instruksi_khusus" name="instruksi_khusus" rows="2" placeholder="Contoh: alergi kacang, ingin packaging khusus, dll"></textarea>
-              </div>
-            </div>
-
-            <div class="d-grid">
-              <button type="submit" class="btn-submit" id="submitBtn">
-                🛒 pesan Sekarang
-              </button>
-            </div>
-
-            <p class="text-center text-muted mt-3" style="font-size: 12px;">
-              Kami akan menghubungi Anda via WhatsApp untuk konfirmasi pesanan
-            </p>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>

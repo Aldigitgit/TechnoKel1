@@ -379,7 +379,7 @@
                 <h1 class="brand-title">Duha Pao</h1>
                 <p class="brand-subtitle mt-2">Bakpao & Dimsum Segar Setiap Hari</p>
                 <div class="mt-3 text-center">
-                    <small style="color: rgba(255,212,168,0.7); font-size: 11px;">✨ Sejak 2005 ✨</small>
+                    <small style="color: rgba(255,212,168,0.7); font-size: 11px;">✨ Sejak 2019 ✨</small>
                 </div>
             </div>
 

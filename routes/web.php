@@ -54,16 +54,7 @@ Route::group(['middleware' => ['checkislogin']], function () {
         Route::delete('/destroy/{pelanggan_id}', [PelangganController::class, 'destroy'])->name('destroy');
     });
 
-    Route::prefix('pesan')->name('pesan.')->group(function () {
-        Route::get('/', [PesanController::class, 'index'])->name('list');
-        Route::get('/create', [PesanController::class, 'create'])->name('create');
-        Route::post('/store', [PesanController::class, 'store'])->name('store');
-        Route::get('/edit/{pesanan_id}', [PesanController::class, 'edit'])->name('edit');
-        Route::post('/update', [PesanController::class, 'update'])->name('update');
-        Route::delete('/destroy/{pesanan_id}', [PesanController::class, 'destroy'])->name('destroy');
-        Route::get('/detail/{pesanan_id}', [PesanController::class, 'show'])->name('show');
-        Route::get('/success/{pesanan_id}', [PesanController::class, 'success'])->name('success');
-    });
+    
 
     Route::group(['middleware' => ['checkrole:administrator']], function () {
         Route::prefix('admin')->name('admin.')->group(function () {
@@ -76,3 +67,14 @@ Route::group(['middleware' => ['checkislogin']], function () {
         });
     });
 });
+
+Route::prefix('pesan')->name('pesan.')->group(function () {
+        Route::get('/', [PesanController::class, 'index'])->name('list');
+        Route::get('/create', [PesanController::class, 'create'])->name('create');
+        Route::post('/store', [PesanController::class, 'store'])->name('store');
+        Route::get('/edit/{pesanan_id}', [PesanController::class, 'edit'])->name('edit');
+        Route::post('/update', [PesanController::class, 'update'])->name('update');
+        Route::delete('/destroy/{pesanan_id}', [PesanController::class, 'destroy'])->name('destroy');
+        Route::get('/detail/{pesanan_id}', [PesanController::class, 'show'])->name('show');
+        Route::get('/success/{pesanan_id}', [PesanController::class, 'success'])->name('success');
+    });
