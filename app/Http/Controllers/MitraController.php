@@ -35,12 +35,12 @@ class MitraController extends Controller
             });
         }
         
-        $dataMitra = $query->orderBy('created_at', 'desc')
+        $datamitra = $query->orderBy('created_at', 'desc')
             ->paginate(10)
             ->onEachSide(2)
             ->withQueryString();
             
-        return view('admin.mitra.index', compact('dataMitra'));
+        return view('admin.mitra.index', compact('datamitra'));
     }
 
     /**
@@ -102,8 +102,8 @@ class MitraController extends Controller
      */
     public function show($Mitra_Id)
     {
-        $dataMitra = Mitra::findOrFail($Mitra_Id);
-        return view('admin.mitra.show', compact('dataMitra'));
+        $datamitra = Mitra::findOrFail($Mitra_Id);
+        return view('admin.mitra.show', compact('datamitra'));
     }
 
     /**
@@ -111,8 +111,8 @@ class MitraController extends Controller
      */
     public function edit($Mitra_Id)
     {
-        $dataMitra = Mitra::findOrFail($Mitra_Id);
-        return view('admin.mitra.edit', compact('dataMitra'));
+        $datamitra = Mitra::findOrFail($Mitra_Id);
+        return view('admin.mitra.edit', compact('datamitra'));
     }
 
     /**
