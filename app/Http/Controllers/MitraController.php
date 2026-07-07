@@ -57,7 +57,7 @@ class MitraController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'Nama_Mitra' => 'required|string|max:200',
+            'Nama_mitra' => 'required|string|max:200',
             'Alamat' => 'required|string',
             'Email' => 'required|email|unique:mitra,email',
             'Nomor_Telepon' => 'required|string|max:20',
@@ -65,7 +65,7 @@ class MitraController extends Controller
             'Bergabung' => 'required|date',
             'confirmation' => 'accepted',
         ], [
-            'Nama_Mitra.required' => 'Nama mitra harus diisi',
+            'Nama_mitra.required' => 'Nama mitra harus diisi',
             'Alamat.required' => 'Alamat harus diisi',
             'Email.required' => 'Email harus diisi',
             'Email.email' => 'Format email tidak valid',
@@ -83,7 +83,7 @@ class MitraController extends Controller
         }
 
         $data = [
-            'nama_mitra' => $request->Nama_Mitra,
+            'nama_mitra' => $request->Nama_mitra,
             'alamat' => $request->Alamat,
             'email' => $request->Email,
             'nomor_telepon' => $request->Nomor_Telepon,
@@ -122,14 +122,14 @@ class MitraController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'mitra_id' => 'required|exists:mitra,mitra_id',
-            'Nama_Mitra' => 'required|string|max:200',
+            'Nama_mitra' => 'required|string|max:200',
             'Alamat' => 'required|string',
             'Email' => 'required|email|unique:mitra,email,' . $request->mitra_id . ',mitra_id',
             'Nomor_Telepon' => 'required|string|max:20',
             'Kemitraan' => 'required|in:Platinum,Gold,Silver',
             'Bergabung' => 'required|date',
         ], [
-            'Nama_Mitra.required' => 'Nama mitra harus diisi',
+            'Nama_mitra.required' => 'Nama mitra harus diisi',
             'Alamat.required' => 'Alamat harus diisi',
             'Email.required' => 'Email harus diisi',
             'Email.email' => 'Format email tidak valid',
@@ -147,7 +147,7 @@ class MitraController extends Controller
 
         $mitra = Mitra::findOrFail($request->mitra_id);
 
-        $mitra->nama_mitra = $request->Nama_Mitra;
+        $mitra->nama_mitra = $request->Nama_mitra;
         $mitra->alamat = $request->Alamat;
         $mitra->email = $request->Email;
         $mitra->nomor_telepon = $request->Nomor_Telepon;

@@ -80,7 +80,7 @@
                             <td>
                                 <div class="btn-group" role="group">
                                     <!-- CARA 1: Menggunakan named route dengan array -->
-                                    <a href="{{ route('mitra.edit', ['mitra_Id' => $row->mitra_id]) }}" class="btn btn-info btn-sm">
+                                    <a href="{{ route('mitra.edit', ['mitra_id' => $row->mitra_id]) }}" class="btn btn-info btn-sm">
                                         Edit
                                     </a>
                                     

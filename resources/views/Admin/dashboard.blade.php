@@ -129,8 +129,12 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('pesan.edit', $p->pesanan_id) }}" class="btn btn-info btn-sm py-0 px-2 me-1">Edit</a>
-                                    <a href="{{ route('pesan.destroy', $p->pesanan_id) }}" class="btn btn-danger btn-sm py-0 px-2"
-                                        onclick="return confirm('Hapus pesanan ini?')">Hapus</a>
+                                    <form action="{{ route('pesan.destroy', $p->pesanan_id) }}" method="POST" class="d-inline"
+                                          onsubmit="return confirm('Hapus pesanan ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm py-0 px-2">Hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                             @empty

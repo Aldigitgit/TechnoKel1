@@ -54,9 +54,9 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <div>
-                        <label for="Nama_produk">Nama produk</label>
-                        <input class="form-control" id="Nama_produk" type="text" placeholder="Enter your first name"
-                            name="Nama_produk" value="{{ $dataproduk->Nama_produk }}">
+                        <label for="nama_produk">Nama produk</label>
+                        <input class="form-control" id="nama_produk" type="text" placeholder="Enter your first name"
+                            name="nama_produk" value="{{ $dataproduk->nama_produk }}">
                     </div>
                 </div>
                 <div class="col-md-6 mb-3">
